@@ -2,7 +2,7 @@ name: Trade with Alpaca and Finviz
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # At every 10 min
+    - cron: '*/30 * * * *' # At every 30 min
 
 jobs:
   build:
@@ -23,4 +23,7 @@ jobs:
           pip install -r requirements.txt
           
       - name: execute py script
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: python alpaca_trade.py
