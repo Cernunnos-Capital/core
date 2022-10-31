@@ -1,10 +1,8 @@
 name: Trade with Alpaca and Finviz
 
 on:
-  # schedule:
-  #   # - cron: '0 12 * * 3'  # At 12PM on Wednesday
-  #   - cron: '*/5 * * * *'   # every 5 minutes
-  push
+  schedule:
+    - cron: '*/2 * * * *' # At 00:00 on Monday    
 
 jobs:
   build:
