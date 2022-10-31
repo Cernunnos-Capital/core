@@ -17,7 +17,8 @@ trading_client.cancel_all_orders()
 account = trading_client.get_account()
 
 # captial available per stock
-cost_basis = float(account.buying_power) / float(len(tickers))
+# cost_basis = float(account.buying_power) / float(len(tickers))
+cost_basis = 125 / float(len(tickers))  # test with 125$
 
 # submit order
 for t in tickers:
