@@ -2,7 +2,7 @@ name: Trade with Alpaca and Finviz
 
 on:
   schedule:
-    - cron: '*/2 * * * *' # At 00:00 on Monday    
+    - cron: '*/10 * * * *' # At every 10 min
 
 jobs:
   build:
