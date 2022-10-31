@@ -1,9 +1,10 @@
-from finviz_screener import tickers
+import os
 import alpaca_trade_api as TradingClient
+from finviz_screener import tickers
 
 BASE_URL = 'https://paper-api.alpaca.markets'
-API_KEY = 'PKB9Y7E4C0J8LQHJGXOG'
-SECRET_KEY = 'VsTkYNA2T6cWh1VKvHAPQnxkGGgqf516uLobEOSM'
+API_KEY = os.environ['API_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 trading_client = TradingClient.REST(API_KEY, SECRET_KEY, BASE_URL, api_version='v2')
 
@@ -23,4 +24,4 @@ for t in tickers:
         type = 'market',
         time_in_force = 'day'
     )
-    print("Bought", t[0])
+    print("Bought using env secrets", t[0])
