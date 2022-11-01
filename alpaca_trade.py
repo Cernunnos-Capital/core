@@ -29,4 +29,4 @@ for t in tickers:
         type = 'market',
         time_in_force = 'day'
     )
-    print("Bought using env secrets", t[0])
+    print("Bought", t[0])
