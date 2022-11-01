@@ -1,4 +1,4 @@
-name: Trade with Alpaca and Finviz
+name: Paper trade in Dev
 
 on:
   push
