@@ -1,11 +1,10 @@
 name: Trade with Alpaca and Finviz
 
 on:
-  schedule:
-    - cron: '30 16 * * 1-5'             # M-F 9:30 PDT
+  push
 
 jobs:
-  build:
+  dev:
     runs-on: ubuntu-latest
     environment: Development
     steps:
@@ -28,4 +27,5 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
+          STOCK_SCREENER: ${{ secrets.STOCK_SCREENER }}
         run: python alpaca_trade.py
