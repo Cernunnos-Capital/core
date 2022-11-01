@@ -3,7 +3,7 @@ import alpaca_trade_api as TradingClient
 from finviz_screener import tickers
 
 # credentials
-BASE_URL = 'https://paper-api.alpaca.markets'
+BASE_URL = os.environ['ENDPOINT']
 API_KEY = os.environ['API_KEY']
 SECRET_KEY = os.environ['SECRET_KEY']
 
