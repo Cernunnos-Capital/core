@@ -19,9 +19,10 @@ jobs:
         with:
           python-version: '3.9'         
           
-      - name: Install pylint
+      - name: Install python packages
         run: |
-          pip install pylint
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
           
       - name: Execute script
         run: pylint alpaca_trade.py
