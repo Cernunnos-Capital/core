@@ -1,3 +1,4 @@
+"""Module submits buy order using Alpaca API"""
 import os
 import alpaca_trade_api as TradingClient
 from finviz_screener import tickers
@@ -7,7 +8,7 @@ BASE_URL = os.environ['ENDPOINT']
 API_KEY = os.environ['API_KEY']
 SECRET_KEY = os.environ['SECRET_KEY']
 
-# alpaca API 
+# alpaca API
 trading_client = TradingClient.REST(API_KEY, SECRET_KEY, BASE_URL, api_version='v2')
 
 # cancel pending order
@@ -23,10 +24,10 @@ cost_basis = 125 / float(len(tickers))  # test with 125$
 # submit order
 for t in tickers:
     trading_client.submit_order(
-        symbol = t[0],
+        symbol = t,
         side = 'buy',
         notional = cost_basis,
         type = 'market',
         time_in_force = 'day'
     )
-    print("Bought", t[0])
+    print("Bought", t)
