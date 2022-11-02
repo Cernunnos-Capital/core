@@ -1,4 +1,4 @@
-name: Paper trade in Dev
+name: Lint
 
 on:
   push:
@@ -6,9 +6,9 @@ on:
       - 'main'
 
 jobs:
-  dev:
+  QAT:
     runs-on: ubuntu-latest
-    environment: Development
+    environment: QAT
     steps:
 
       - name: Checkout code
