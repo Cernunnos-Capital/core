@@ -2,7 +2,7 @@ name: Paper trade in Stg
 
 on:
   schedule:
-    - cron: '30 16 * * 1-5'             # M-F 9:30 PDT
+    - cron: '00 16 * * 1-5'             # M-F 9:30 PDT
 
 jobs:
   stg:
