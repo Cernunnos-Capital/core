@@ -1,7 +1,9 @@
 name: Paper trade in Dev
 
 on:
-  push
+  push:
+    branches:
+      - 'feature/**'
 
 jobs:
   dev:
