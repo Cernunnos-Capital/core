@@ -1,0 +1,27 @@
+name: Paper trade in Dev
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  dev:
+    runs-on: ubuntu-latest
+    environment: Development
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3       
+
+      - name: Setup python
+        uses: actions/setup-python@v4.3.0
+        with:
+          python-version: '3.9'         
+          
+      - name: Install pylint
+        run: |
+          pip install pylint
+          
+      - name: Execute script
+        run: pylint alpaca_trade.py
