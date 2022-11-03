@@ -30,4 +30,4 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
           URL: ${{ secrets.URL }}
-        run: python alpaca_trade.py
+        run: python order.py

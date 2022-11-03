@@ -25,4 +25,4 @@ jobs:
           pip install -r requirements.txt
           
       - name: Execute script
-        run: pylint alpaca_trade.py
+        run: python order.py
