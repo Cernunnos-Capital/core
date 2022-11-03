@@ -1,8 +1,8 @@
-name: Paper trade in Stg
+name: Morning trade
 
 on:
   schedule:
-    - cron: '00 16 * * 1-5'             # M-F 9:30 PDT
+    - cron: '00 16 * * 1-5'             # M-F 9:30AM PDT
 
 jobs:
   stg:
@@ -29,4 +29,5 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
           URL: ${{ secrets.URL }}
+          BUYING_POWER: ${{ secrets.BUYING_POWER }}
         run: python order.py
