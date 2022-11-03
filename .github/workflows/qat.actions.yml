@@ -25,4 +25,4 @@ jobs:
           pip install -r requirements.txt
           
       - name: Execute script
-        run: python order.py
+        run: pylint order.py
