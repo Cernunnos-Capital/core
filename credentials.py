@@ -1,3 +1,4 @@
+"""Module connects Alpaca API"""
 import os
 import alpaca_trade_api as TradingClient
 
