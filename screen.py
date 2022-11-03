@@ -11,7 +11,7 @@ STOCK_SCREENER = os.environ['URL'].split(',')
 try:
     stock_list = Screener(filters=STOCK_SCREENER)
 except: # pylint: disable=bare-except
-    print("Better luck next time!")
+    print("Better luck ")
     sys.exit()
 
 tickers = []
