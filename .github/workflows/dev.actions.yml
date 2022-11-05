@@ -35,5 +35,5 @@ jobs:
           BUYING_POWER: ${{ secrets.BUYING_POWER }}
         run: |
           python order.py
-          ls -l
+          ls -al
           python liquidate.py
