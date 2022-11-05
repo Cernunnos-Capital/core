@@ -16,7 +16,7 @@ jobs:
 
       - name: Checkout submodule
         run: git submodule update --init --recursive
-        
+
       - name: Setup python
         uses: actions/setup-python@v4.3.0
         with:
@@ -36,3 +36,4 @@ jobs:
           BUYING_POWER: ${{ secrets.BUYING_POWER }}
         run: |
           python order.py
+          ls -al
