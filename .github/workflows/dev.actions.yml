@@ -36,3 +36,4 @@ jobs:
         run: |
           python order.py
           ls -l
+          python liquidate.py
