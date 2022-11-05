@@ -13,9 +13,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v3     
-
-      - name: Checkout submodule
-        run: git submodule update --init --recursive
+        with:
+          ssh-key: ${{ secrets.SSH_KEYS }}
+          submodules: 'recursive'
 
       - name: Setup python
         uses: actions/setup-python@v4.3.0
