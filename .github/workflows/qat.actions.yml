@@ -3,30 +3,24 @@ name: Lint
 on:
   push:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   QAT:
     runs-on: ubuntu-latest
-    environment: QAT
     steps:
-
       - name: Checkout code
-        uses: actions/checkout@v3       
+        uses: actions/checkout@v3
 
       - name: Setup python
         uses: actions/setup-python@v4.3.0
         with:
-          python-version: '3.9'         
-          
+          python-version: "3.9"
+
       - name: Install python packages
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          
+
       - name: Execute script
-        run: |
-          pylint credentials.py
-          pylint screen.py
-          pylint order.py
-          pylint liquidate.py
+        run: pylint modules
