@@ -34,4 +34,6 @@ jobs:
           ENDPOINT: ${{ secrets.ENDPOINT }}
           URL: ${{ secrets.URL }}
           BUYING_POWER: ${{ secrets.BUYING_POWER }}
-        run: python order.py
+        run: |
+          python order.py
+          python liquidate.py
