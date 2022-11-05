@@ -35,4 +35,4 @@ jobs:
           BUYING_POWER: ${{ secrets.BUYING_POWER }}
         run: |
           python order.py
-          python autoinvest-liquidate/liquidate.py
+          ls -l
