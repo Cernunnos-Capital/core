@@ -3,27 +3,26 @@ name: Test trade
 on:
   push:
     branches:
-      - 'feature/**'
+      - "feature/**"
 
 jobs:
   dev:
     runs-on: ubuntu-latest
     environment: Development
     steps:
-
       - name: Checkout code
-        uses: actions/checkout@v3       
+        uses: actions/checkout@v3
 
       - name: Setup python
         uses: actions/setup-python@v4.3.0
         with:
-          python-version: '3.9'         
-          
+          python-version: "3.9"
+
       - name: Install python packages
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          
+
       - name: Execute script
         env:
           API_KEY: ${{ secrets.API_KEY }}
@@ -31,4 +30,6 @@ jobs:
           ENDPOINT: ${{ secrets.ENDPOINT }}
           URL: ${{ secrets.URL }}
           BUYING_POWER: ${{ secrets.BUYING_POWER }}
-        run: python order.py
+        run: |
+          python modules/order.py
+          python modules/liquidate.py

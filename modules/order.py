@@ -3,6 +3,9 @@ import os
 from credentials import trading_client
 from screen import tickers
 
+# cancel all pending orders
+trading_client.cancel_all_orders()
+
 # account info
 account = trading_client.get_account()
 
@@ -12,8 +15,8 @@ cost_basis = float(os.environ['BUYING_POWER']) / float(len(tickers))
 # submit order
 for t in tickers:
     trading_client.submit_order(
-        symbol = t,
-        side = 'buy',
-        notional = cost_basis,
+        symbol=t,
+        side='buy',
+        notional=cost_basis,
     )
     print("Bought", t)
