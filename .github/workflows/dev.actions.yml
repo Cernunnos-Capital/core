@@ -14,8 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3     
 
-      - name: display files
-        run: ls -al  
+      - name: Checkout submodule
+        run: git submodule add https://github.com/atreyasinha/autoinvest-liquidate
 
       - name: Setup python
         uses: actions/setup-python@v4.3.0
