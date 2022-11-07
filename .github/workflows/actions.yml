@@ -6,7 +6,7 @@ on:
 
 jobs:
   stg:
-          runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     environment: Staging
     steps:
       - name: Checkout code
