@@ -1,5 +1,6 @@
 # autoinvest
-Automated Investing with Dynamic Rebalancing## Portfolio
+Automated Investing with Dynamic Rebalancing
+## Portfolio
 | Cost Basis | Market Value | Unrealized gain |
 | ------------- |:-------------:| -----:|
 |850.0|929.78|9.39%|
