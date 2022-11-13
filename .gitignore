@@ -3,6 +3,3 @@
 
 # environment
 venv/ 
-
-# pycache
-modules/__pycache__
