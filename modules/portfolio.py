@@ -21,7 +21,7 @@ intraday_pl = round(intraday_pl, 2)
 
 with open('README.md', 'w', newline='', encoding='utf8') as f:
     f.write('# autoinvest\n')
-    f.write('Automated Investing with Dynamic Rebalancing')
+    f.write('Automated Investing with Dynamic Rebalancing\n')
     f.write('## Portfolio\n')
     f.write('| Cost Basis | Market Value | Unrealized gain |\n')
     f.write('| ------------- |:-------------:| -----:|\n')
