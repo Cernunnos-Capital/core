@@ -19,7 +19,7 @@ total_market_value = round(total_market_value, 2)
 intraday_pl = (unrealized_intraday_pl / total_market_value) * 100
 intraday_pl = round(intraday_pl, 2)
 
-with open('../README.md', 'w', newline='', encoding='utf8') as f:
+with open('README.md', 'w', newline='', encoding='utf8') as f:
     f.write('# autoinvest\n')
     f.write('## Portfolio\n')
     f.write('| Cost Basis | Market Value | Unrealized gain |\n')
