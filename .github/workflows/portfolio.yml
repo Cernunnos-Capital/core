@@ -1,9 +1,8 @@
 name: Portfolio
 
 on:
-  push:
-    branches:
-      - "portfolio"
+  schedule:
+    - cron: "0 20 * * 1-5" # M-F 8:30PM EDT
 
 jobs:
   portfolio-update:
@@ -12,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          ref: "portfolio"
 
       - name: Setup python
         uses: actions/setup-python@v4.3.0
@@ -30,12 +31,14 @@ jobs:
           ENDPOINT: ${{ secrets.ENDPOINT }}
         run: |
           python modules/portfolio.py
+
       - name: commit files
         run: |
           git config --local user.email "atreyavis@gmail.com"
           git config --local user.name "Atreya"
           git add -A
           git diff-index --quiet HEAD || (git commit -a -m "updated portfolio" --allow-empty)
+
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
