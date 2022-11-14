@@ -27,7 +27,7 @@ with open('README.md', 'w', newline='', encoding='utf8') as f:
     f.write('## Portfolio\n')
     f.write('```\n')
     f.write('Cost Basis:         $' + str(total_cost_basis) + '\n')
-    f.write('Market Value:       $' + str(total_cost_basis) + '\n')
+    f.write('Market Value:       $' + str(total_market_value) + '\n')
     f.write('Unrealized gain:    ' + str(total_pl) + '\n')
     f.write('```\n')
 
