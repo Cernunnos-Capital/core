@@ -2,7 +2,8 @@ name: Update Portfolio
 
 on:
   schedule:
-    - cron: "00 21 * * 1-5" # every 30 min
+    # every 30th minute past every hour from 14 through 21 on every day-of-week from Monday through Friday
+    - cron: "*/30 14-21 * * 1-5"
 
 jobs:
   portfolio-update:
