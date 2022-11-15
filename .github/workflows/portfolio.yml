@@ -1,8 +1,9 @@
 name: Portfolio
 
 on:
-  schedule:
-    - cron: "*/5 * * * *" # M-F 8:30PM EDT
+  push:
+    branches:
+      - "portfolio"
 
 jobs:
   portfolio-update:
