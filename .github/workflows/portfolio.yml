@@ -2,7 +2,7 @@ name: Portfolio
 
 on:
   schedule:
-    - cron: "0 20 * * 1-5" # M-F 8:30PM EDT
+    - cron: "*/5 * * * *" # M-F 8:30PM EDT
 
 jobs:
   portfolio-update:
