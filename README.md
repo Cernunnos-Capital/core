@@ -3,8 +3,8 @@ Automated Investing with Dynamic Rebalancing
 ## Portfolio
 ```
 Cost Basis:         $525.0
-Market Value:       $552.38
-Unrealized gain:    5.21%
+Market Value:       $553.47
+Unrealized gain:    5.42%
 ```
 >*last updated November 15, 2022*
 ## Current Holdings
