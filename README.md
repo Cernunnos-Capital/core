@@ -3,10 +3,10 @@ Automated Investing with Dynamic Rebalancing
 ## Portfolio
 ```
 Cost Basis:         $450.0
-Market Value:       $470.29
-Unrealized gain:    4.51%
+Market Value:       $465.19
+Unrealized gain:    3.38%
 ```
->*last updated November 14, 2022*
+>*last updated November 15, 2022*
 ## Current Holdings
 - Bank of Nova Scotia
 - Popular, Inc. Common Stock
