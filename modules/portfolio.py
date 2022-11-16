@@ -1,40 +1,47 @@
 from credentials import trading_client
-from datetime import date
 
+holdings = []
 total_cost_basis = 0.0
 total_market_value = 0.0
 unrealized_intraday_pl = 0.0
-stocks = []
-for p in trading_client.list_positions():
-    stocks.append(trading_client.get_asset(p.symbol).name)
-    total_cost_basis += float(p.cost_basis)
-    total_market_value += float(p.market_value)
-    unrealized_intraday_pl += float(p.unrealized_intraday_pl)
+for position in trading_client.list_positions():
+    total_cost_basis += float(position.cost_basis)
+    total_market_value += float(position.market_value)
+    unrealized_intraday_pl += float(position.unrealized_intraday_pl)
 
-total_pl = ((total_market_value - total_cost_basis) /
-            total_cost_basis) * 100
+    holdings.append(
+        [trading_client.get_asset(position.symbol).name,
+         float(position.market_value),
+         round(float(position.current_price), 2),
+         round(float(position.avg_entry_price), 2),
+         str(round(float(position.unrealized_intraday_plpc) * 100, 2)) + '%',
+         str(round(float(position.unrealized_plpc) * 100, 2)) + '%'])
+
+total_pl = ((total_market_value - total_cost_basis) / total_cost_basis) * 100
+
 total_pl = str(round(total_pl, 2)) + '%'
 total_cost_basis = round(total_cost_basis, 2)
 total_market_value = round(total_market_value, 2)
 
 intraday_pl = (unrealized_intraday_pl / total_market_value) * 100
-intraday_pl = round(intraday_pl, 2)
+intraday_pl = str(round(intraday_pl, 2)) + '%'
 
-with open('README.md', 'w', newline='', encoding='utf8') as f:
-    f.write('# autoinvest\n')
-    f.write('Automated Investing with Dynamic Rebalancing\n')
 
-    f.write('## Portfolio\n')
-    f.write('```\n')
-    f.write('Cost Basis:         $' + str(total_cost_basis) + '\n')
-    f.write('Market Value:       $' + str(total_market_value) + '\n')
-    f.write('Unrealized gain:    ' + str(total_pl) + '\n')
-    f.write('```\n')
+def sort_by_market_value(s):
+    return s[1]
 
-    f.write('>*last updated ' + date.today().strftime("%B %d, %Y") + '*\n')
 
-    f.write('## Current Holdings\n')
-    for s in stocks:
-        f.write('- ' + s + '\n')
+data = ""
+count = 0
+for stocks in sorted(holdings, key=sort_by_market_value, reverse=True):
+    data += f"""<tr>
+              <th scope="row" class="text-start" style="color: #272643;">{ stocks[0] }</th>
+              <td>${ stocks[2] }</td>
+              <td>${ stocks[3] }</td>
+              <td style="color: #2c698d;">{ stocks[4] }</td>
+              <td style="color: #2b0080;">{ stocks[5] }</td>
+            </tr>"""
 
-    f.close()
+    count += 1
+    if count == 10:
+        break
