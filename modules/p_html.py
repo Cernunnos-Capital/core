@@ -21,7 +21,7 @@ message = f"""
             <p class="text-muted">Actively managed and fundamentally oriented portfolio that identifies and captures compelling long-term investment opportunities</p>
             <a href="https://github.com/atreyasinha/autoinvest" target="_blank" class="btn btn-dark btn-lg">Source Code</a>
           </div>
-          <div class="row row-cols-1 row-cols-sm-2 g-4">
+          <div class="row row-cols-2 row-cols-sm-2 g-5">
             <div class="d-flex flex-column gap-2">
               <h1 class="fw-semibold mb-0" style="color: #ff4500;">${ total_market_value }</h1>
               <p class="text-muted">Market Value</p>
