@@ -48,16 +48,16 @@ message = f"""
 
 
         <h2 class="display-6 text-center mb-4">Top 10 Holdings</h2>
-        <p class="text-muted text-center">{ date.today().strftime("%B %d, %Y") }</p>
+        <p class="text-muted text-center">As of { date.today().strftime("%B %d, %Y") }</p>
         <div class="table-responsive">
-        <table class="table text-center">
+        <table class="table">
           <thead>
             <tr>
-              <th style="width: 30%;"></th>
-              <th style="width: 17.5%;">Price</th>
-              <th style="width: 17.5%;">Avg Entry</th>
-              <th style="width: 17.5%;">Today's P/L (%)</th>
-              <th style="width: 17.5%;">Total P/L (%)</th>
+              <th style="width: 40%;"></th>
+              <th style="width: 15%;">Weight (%)</th>
+              <th style="width: 15%;">Avg Entry ($)</th>
+              <th style="width: 15%;">Today's P/L (%)</th>
+              <th style="width: 15%;">Total P/L (%)</th>
             </tr>
           </thead>
 

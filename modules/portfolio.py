@@ -36,8 +36,8 @@ count = 0
 for stocks in sorted(holdings, key=sort_by_market_value, reverse=True):
     data += f"""<tr>
               <th scope="row" class="text-start" style="color: #272643;">{ stocks[0] }</th>
-              <td>${ stocks[2] }</td>
-              <td>${ stocks[3] }</td>
+              <td>{ str(round((stocks[1] / total_market_value) * 100, 2)) + '%' }</td>
+              <td class="text-muted">${ stocks[3] }</td>
               <td style="color: #2c698d;">{ stocks[4] }</td>
               <td style="color: #2b0080;">{ stocks[5] }</td>
             </tr>"""
