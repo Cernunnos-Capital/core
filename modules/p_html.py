@@ -19,7 +19,7 @@ message = f"""
           <div class="d-flex flex-column align-items-start gap-2">
             <h3 class="fw-bold" style="color: #272643;">Automated Investing with Dynamic Rebalancing</h3>
             <p class="text-muted">Actively managed and fundamentally oriented portfolio that identifies and captures compelling long-term investment opportunities</p>
-            <p style="color: #2b0080;">Inception Date: Nov 17, 2022</p>
+            <p style="color: #2b0080;">Inception Date: Nov 7, 2022</p>
             <a href="https://github.com/atreyasinha/autoinvest" target="_blank" class="btn btn-dark btn-lg">Source Code</a>
           </div>
           <div class="row row-cols-2 row-cols-sm-2 g-5">
