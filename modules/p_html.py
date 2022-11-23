@@ -1,5 +1,5 @@
 from datetime import date
-from portfolio import data, total_market_value, total_cost_basis, total_pl, intraday_pl
+from portfolio import data, total_market_value, total_cost_basis, total_pl_pc, intraday_pl, chart
 
 message = f"""
 <!doctype html>
@@ -19,6 +19,7 @@ message = f"""
           <div class="d-flex flex-column align-items-start gap-2">
             <h3 class="fw-bold" style="color: #272643;">Automated Investing with Dynamic Rebalancing</h3>
             <p class="text-muted">Actively managed and fundamentally oriented portfolio that identifies and captures compelling long-term investment opportunities</p>
+            <p style="color: #2b0080;">Inception Date: Nov 17, 2022</p>
             <a href="https://github.com/atreyasinha/autoinvest" target="_blank" class="btn btn-dark btn-lg">Source Code</a>
           </div>
           <div class="row row-cols-2 row-cols-sm-2 g-5">
@@ -33,7 +34,7 @@ message = f"""
             </div>
     
             <div class="d-flex flex-column gap-2">
-              <h1 class="fw-semibold mb-0">{ total_pl }</h1>
+              <h1 class="fw-semibold mb-0">{ total_pl_pc }</h1>
               <p class="text-muted">Total Returns</p>
             </div>
     
@@ -45,33 +46,34 @@ message = f"""
         </div>
       </div>
 
+      <embed src="{ chart }" width="100%" height="500">
 
+       <br><br>
+      <h2 class="display-6 text-center mb-4">Top 10 Holdings</h2>
+      <p class="text-muted text-center">As of { date.today().strftime("%B %d, %Y") }</p>
+      <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width: 40%;"></th>
+            <th style="width: 15%;">Weight (%)</th>
+            <th style="width: 15%;">Avg Entry ($)</th>
+            <th style="width: 15%;">Today's P/L (%)</th>
+            <th style="width: 15%;">Total P/L (%)</th>
+          </tr>
+        </thead>
 
-        <h2 class="display-6 text-center mb-4">Top 10 Holdings</h2>
-        <p class="text-muted text-center">As of { date.today().strftime("%B %d, %Y") }</p>
-        <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th style="width: 40%;"></th>
-              <th style="width: 15%;">Weight (%)</th>
-              <th style="width: 15%;">Avg Entry ($)</th>
-              <th style="width: 15%;">Today's P/L (%)</th>
-              <th style="width: 15%;">Total P/L (%)</th>
-            </tr>
-          </thead>
+          
 
-            { data }
+        <tbody>
+          { data }
+        </tbody>
+      </table>
+      </div>
 
-          <tbody>
-
-          </tbody>
-        </table>
-        </div>
-
-        <footer class="py-3 my-4">
-            <p class="text-center text-muted">© { date.today().strftime("%Y") } autoinvest, Inc</p>
-        </footer>
+      <footer class="py-3 my-4">
+          <p class="text-center text-muted">© { date.today().strftime("%Y") } autoinvest, Inc</p>
+      </footer>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   </body>
