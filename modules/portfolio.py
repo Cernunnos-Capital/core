@@ -105,7 +105,8 @@ def get_portfolio_attributes(holdings, TOP_10_HOLDINGS, STOCK_NEWS):
 def create_pie_chart(sectors):
     """Renders pie chart using pygal"""
     DefaultStyle.background = 'transparent'
-    pie_chart = pygal.Pie(truncate_legend=25, style=DefaultStyle)
+    pie_chart = pygal.Pie(truncate_legend=25,
+                          style=DefaultStyle, legend_at_bottom=True, legend_box_size=20)
 
     for s in sectors:
         pie_chart.add(s, sectors[s])

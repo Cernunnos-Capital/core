@@ -24,28 +24,30 @@ HTML = f"""
                   <p class="fw-bold" style="color: #2b0080;">Inception Date: Nov 7, 2022</p>
                   <a href="https://github.com/atreyasinha/autoinvest" target="_blank" class="btn btn-dark btn-lg">Source Code</a>
                </div>
-               <div class="row row-cols-2 row-cols-sm-2 g-5">
-                  <div class="d-flex flex-column gap-2">
-                     <h1 class="fw-semibold mb-0" style="color: #ff4500;">${ TOTAL_MARKET_VALUE }</h1>
-                     <p class="text-muted">Market Value</p>
-                  </div>
-                  <div class="d-flex flex-column gap-2">
-                     <h1 class="fw-semibold mb-0">${ TOTAL_COST_BASIS }</h1>
-                     <p class="text-muted">Cost Basis</p>
-                  </div>
-                  <div class="d-flex flex-column gap-2">
-                     <h1 class="fw-semibold mb-0">{ TOTAL_PL_PC }</h1>
-                     <p class="text-muted">Total Returns</p>
-                  </div>
-                  <div class="d-flex flex-column gap-2">
-                     <h1 class="fw-semibold mb-0" style="color: #2c698d;">{ INTRADAY_PL }</h1>
-                     <p class="text-muted">Intraday Returns</p>
-                  </div>
+               <div class="d-flex flex-column align-items-start gap-2" style="padding: 0; margin: 0;">
+                  <embed src="{ CHART }" width="100%" height="500">
                </div>
             </div>
-            <embed src="{ CHART }" width="100%" height="500">
+            <div class="row text-center g-5">
+               <div class="col">
+                  <h1 class="fw-semibold mb-0" style="color: #ff4500;">${ TOTAL_MARKET_VALUE }</h1>
+                  <p class="text-muted">Market Value</p>
+               </div>
+               <div class="col">
+                  <h1 class="fw-semibold mb-0">${ TOTAL_COST_BASIS }</h1>
+                  <p class="text-muted">Cost Basis</p>
+               </div>
+               <div class="col">
+                  <h1 class="fw-semibold mb-0">{ TOTAL_PL_PC }</h1>
+                  <p class="text-muted">Total Returns</p>
+               </div>
+               <div class="col">
+                  <h1 class="fw-semibold mb-0" style="color: #2c698d;">{ INTRADAY_PL }</h1>
+                  <p class="text-muted">Intraday Returns</p>
+               </div>
+            </div>
          </div>
-         <h2 class="text-center">Top 10 Holdings</h2>
+         <h2 class="text-center" style="padding-top: 3rem;">Top 10 Holdings</h2>
          <p class="text-muted text-center">As of { date.today().strftime("%B %d, %Y") }</p>
          <div class="table-responsive">
             <table class="table">
