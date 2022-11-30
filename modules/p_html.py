@@ -1,6 +1,6 @@
 """Module creates a static webpage"""
 from datetime import date
-from portfolio import TOTAL_MARKET_VALUE, TOTAL_COST_BASIS, TOTAL_PL_PC, INTRADAY_PL
+from portfolio import TOTAL_MARKET_VALUE, CASH_FLOW, TOTAL_PL_PC, INTRADAY_PL
 from portfolio import TOP_10_HOLDINGS, CHART, STOCK_NEWS
 
 COMPANY = 'auto{invest}'
@@ -49,8 +49,8 @@ HTML = f"""
                </div>
                <div class="col">
                   <div class="card">
-                     <h1 class="fw-semibold mb-0" style="padding-top: 1rem;">{ TOTAL_COST_BASIS }</h1>
-                     <p class="text-muted">S&P 500</p>
+                     <h1 class="fw-semibold mb-0" style="padding-top: 1rem;">${ CASH_FLOW }</h1>
+                     <p class="text-muted">Cash Flow</p>
                   </div>
                </div>
             </div>

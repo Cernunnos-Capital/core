@@ -12,11 +12,13 @@ INTRADAY_PL = 0.0
 TOP_10_HOLDINGS = ''
 STOCK_NEWS = ''
 CHART = ''
+CASH_FLOW = 0.0
 
 
 def get_holdings(TOTAL_COST_BASIS, TOTAL_MARKET_VALUE,
-                 UNREALIZED_INTRADAY_PL, TOTAL_PL_PC, INTRADAY_PL):
+                 UNREALIZED_INTRADAY_PL, TOTAL_PL_PC, INTRADAY_PL, CASH_FLOW):
     holdings = []
+    dividend_activity = []
     for position in trading_client.list_positions():
         TOTAL_COST_BASIS += float(position.cost_basis)
         TOTAL_MARKET_VALUE += float(position.market_value)
@@ -28,12 +30,19 @@ def get_holdings(TOTAL_COST_BASIS, TOTAL_MARKET_VALUE,
              round(float(position.avg_entry_price), 2),
              str(round(float(position.unrealized_intraday_plpc) * 100, 2)) + '%',
              str(round(float(position.unrealized_plpc) * 100, 2)) + '%', position.symbol])
+        dividend_activity.append(position.symbol)
+
+    for s in trading_client.get_activities(activity_types='DIV'):
+        if s.symbol in dividend_activity:
+            CASH_FLOW += float(s.net_amount)
 
     TOTAL_PL_PC = ((TOTAL_MARKET_VALUE - TOTAL_COST_BASIS) /
                    TOTAL_COST_BASIS) * 100
 
     TOTAL_PL_PC = str(round(TOTAL_PL_PC, 2)) + '%'
     TOTAL_COST_BASIS = round(TOTAL_COST_BASIS, 2)
+
+    TOTAL_MARKET_VALUE += CASH_FLOW
     TOTAL_MARKET_VALUE = round(TOTAL_MARKET_VALUE, 2)
 
     INTRADAY_PL = (UNREALIZED_INTRADAY_PL / TOTAL_MARKET_VALUE) * 100
@@ -42,7 +51,7 @@ def get_holdings(TOTAL_COST_BASIS, TOTAL_MARKET_VALUE,
     return {'HOLDINGS': holdings,
             'TOTAL_COST_BASIS': TOTAL_COST_BASIS, 'TOTAL_MARKET_VALUE': TOTAL_MARKET_VALUE,
             'UNREALIZED_INTRADAY_PL': UNREALIZED_INTRADAY_PL, 'TOTAL_PL_PC': TOTAL_PL_PC,
-            'INTRADAY_PL': INTRADAY_PL}
+            'INTRADAY_PL': INTRADAY_PL, 'CASH_FLOW': CASH_FLOW}
 
 
 def sort_by(market_value):
@@ -99,6 +108,7 @@ def get_portfolio_attributes(holdings, TOP_10_HOLDINGS, STOCK_NEWS):
                     STOCK_NEWS += display_news(stocks, n)
 
         COUNT += 1
+
     return {'SECTORS': sectors, 'TOP_10_HOLDINGS': TOP_10_HOLDINGS, 'STOCK_NEWS': STOCK_NEWS}
 
 
@@ -115,7 +125,7 @@ def create_pie_chart(sectors):
 
 """Execution"""
 PORTFOLIO = get_holdings(TOTAL_COST_BASIS, TOTAL_MARKET_VALUE,
-                         UNREALIZED_INTRADAY_PL, TOTAL_PL_PC, INTRADAY_PL)
+                         UNREALIZED_INTRADAY_PL, TOTAL_PL_PC, INTRADAY_PL, CASH_FLOW)
 
 TOTAL_MARKET_VALUE = PORTFOLIO['TOTAL_MARKET_VALUE']
 DISPLAY_PORTFOLIO_DATA = get_portfolio_attributes(
@@ -124,9 +134,9 @@ DISPLAY_PORTFOLIO_DATA = get_portfolio_attributes(
 CHART = create_pie_chart(DISPLAY_PORTFOLIO_DATA['SECTORS'])
 
 # TOTAL_COST_BASIS = PORTFOLIO['TOTAL_COST_BASIS']
-TOTAL_COST_BASIS = finviz.get_stock('SPY')['Change']
 UNREALIZED_INTRADAY_PL = PORTFOLIO['UNREALIZED_INTRADAY_PL']
 TOTAL_PL_PC = PORTFOLIO['TOTAL_PL_PC']
 INTRADAY_PL = PORTFOLIO['INTRADAY_PL']
+CASH_FLOW = PORTFOLIO['CASH_FLOW']
 TOP_10_HOLDINGS = DISPLAY_PORTFOLIO_DATA['TOP_10_HOLDINGS']
 STOCK_NEWS = DISPLAY_PORTFOLIO_DATA['STOCK_NEWS']
