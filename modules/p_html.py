@@ -30,20 +30,28 @@ HTML = f"""
             </div>
             <div class="row text-center g-5">
                <div class="col">
-                  <h1 class="fw-semibold mb-0" style="color: #ff4500;">${ TOTAL_MARKET_VALUE }</h1>
-                  <p class="text-muted">Market Value</p>
+                  <div class="card">
+                     <h1 class="fw-semibold mb-0" style="color: #2b0080; padding-top: 1rem;">${ TOTAL_MARKET_VALUE }</h1>
+                     <p class="text-muted">Net Asset Value</p>
+                  </div>
                </div>
                <div class="col">
-                  <h1 class="fw-semibold mb-0">${ TOTAL_COST_BASIS }</h1>
-                  <p class="text-muted">Cost Basis</p>
+                  <div class="card">
+                     <h1 class="fw-semibold mb-0" style="color: #009688; padding-top: 1rem;">{ TOTAL_PL_PC }</h1>
+                     <p class="text-muted">Total Returns</p>
+                  </div>
                </div>
                <div class="col">
-                  <h1 class="fw-semibold mb-0">{ TOTAL_PL_PC }</h1>
-                  <p class="text-muted">Total Returns</p>
+                  <div class="card">
+                     <h1 class="fw-semibold mb-0" style="color: #2c698d; padding-top: 1rem;">{ INTRADAY_PL }</h1>
+                     <p class="text-muted">Intraday Returns</p>
+                  </div>
                </div>
                <div class="col">
-                  <h1 class="fw-semibold mb-0" style="color: #2c698d;">{ INTRADAY_PL }</h1>
-                  <p class="text-muted">Intraday Returns</p>
+                  <div class="card">
+                     <h1 class="fw-semibold mb-0" style="padding-top: 1rem;">{ TOTAL_COST_BASIS }</h1>
+                     <p class="text-muted">S&P 500</p>
+                  </div>
                </div>
             </div>
          </div>
@@ -75,7 +83,7 @@ HTML = f"""
             <p><small class="text-muted">All statements made regarding companies, securities or other financial information on this site are strictly beliefs and points of view held by { COMPANY } and are subject to change without notice. Certain information on this site was obtained from sources that { COMPANY } believes to be reliable; however, { COMPANY } does not guarantee the accuracy or completeness of any information obtained from any third party. The information on this site is for informational purposes only and should not be considered as investment advice or a recommendation of any particular security, strategy or investment product. The information on this site is general in nature and should not be considered legal or tax advice. An investor should consult a financial professional, an attorney, or tax professional regarding the investor’s specific situation.</small></p>
 
             <p><small class="text-muted">Certain hyperlinks or referenced websites on this site may, for your convenience, forward you to third parties' websites, which generally are recognized by their top level domain name. Any descriptions of, references to, or links to other products, publications or services do not constitute an endorsement, authorization, sponsorship or affiliation with { COMPANY } with respect to any linked site or its sponsor, unless expressly stated by { COMPANY }. Any such information, products or sites have not necessarily been reviewed by { COMPANY } and are provided or maintained by third parties over whom { COMPANY } exercises no control. { COMPANY } expressly disclaims any responsibility for the content, the accuracy of the information, and/or the quality of products or services provided by or advertised on these third-party sites. { COMPANY } reserves the right to terminate any hyperlink or hyperlinking program at any time.</small></p>
-            <p class="text-center text-muted">© { date.today().strftime("%Y") } { COMPANY }, Inc</p>
+            <p><small class="text-muted">© { date.today().strftime("%Y") } { COMPANY }, Inc</small></p>
          </footer>
       </main>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
