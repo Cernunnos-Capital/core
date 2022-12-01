@@ -90,7 +90,11 @@ def get_portfolio_attributes(holdings, TOP_10_HOLDINGS, STOCK_NEWS):
     sectors = {}
     COUNT = 0
     for stocks in sorted(holdings, key=sort_by, reverse=True):
-        stock_data = finviz.get_stock(stocks[6])
+        try:
+            stock_data = finviz.get_stock(stocks[6])
+        except:
+            continue
+
         STOCK_SECTOR = str(stock_data['Sector'])
         weight = float(round((stocks[1] / TOTAL_MARKET_VALUE) * 100, 2))
         chart_data = {'value': weight, 'label': stocks[0]}
