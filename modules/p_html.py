@@ -1,6 +1,6 @@
 """Module creates a static webpage"""
 from datetime import date
-from portfolio import TOTAL_MARKET_VALUE, CASH_FLOW, TOTAL_PL_PC, INTRADAY_PL
+from portfolio import TOTAL_MARKET_VALUE, CASH_FLOW, TOTAL_PL_PC, INTRADAY_PL, NET_ASSET_VALUE
 from portfolio import TOP_10_HOLDINGS, CHART, STOCK_NEWS
 
 COMPANY = 'Cernunnos Capital'
@@ -31,13 +31,13 @@ HTML = f"""
             <div class="row text-center g-5">
                <div class="col">
                   <div class="card">
-                     <h1 class="fw-semibold mb-0" style="color: #2b0080; padding-top: 1rem;">${ TOTAL_MARKET_VALUE }</h1>
+                     <h1 class="fw-semibold mb-0" style="color: #2b0080; padding-top: 1rem;">${ NET_ASSET_VALUE }</h1>
                      <p class="text-muted">Net Asset Value</p>
                   </div>
                </div>
                <div class="col">
                   <div class="card">
-                     <h1 class="fw-semibold mb-0" style="color: #009688; padding-top: 1rem;">{ TOTAL_PL_PC }</h1>
+                     <h1 class="fw-semibold mb-0" style="color: #009688; padding-top: 1rem;">{ TOTAL_PL_PC }%</h1>
                      <p class="text-muted">Total Returns</p>
                   </div>
                </div>
