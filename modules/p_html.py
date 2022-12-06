@@ -3,14 +3,14 @@ from datetime import date
 from portfolio import TOTAL_MARKET_VALUE, CASH_FLOW, TOTAL_PL_PC, INTRADAY_PL
 from portfolio import TOP_10_HOLDINGS, CHART, STOCK_NEWS
 
-COMPANY = 'auto{invest}'
+COMPANY = 'Cernunnos Capital'
 HTML = f"""
 <!doctype html>
 <html lang="en">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>autoinvest</title>
+      <title>{ COMPANY }</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
    </head>
    <body>
