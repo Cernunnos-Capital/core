@@ -14,20 +14,25 @@ for p in get_watchlist.assets:
     PS_RATIO = p_fundamentals['P/S']
     PB_RATIO = p_fundamentals['P/B']
 
-    strike = 0
+    COUNT += 1
+
+    if COUNT % 5 == 0:
+        time.sleep(1)
+
+    STRIKE = 0
     if ((PEG_RATIO != '-') and (PS_RATIO != '-') and (PB_RATIO != '-')):
         PEG_RATIO = float(PEG_RATIO)
         PS_RATIO = float(PS_RATIO)
         PB_RATIO = float(PB_RATIO)
 
         if PEG_RATIO > 2:
-            strike += 1
+            STRIKE += 1
         if PS_RATIO > 10:
-            strike += 1
+            STRIKE += 1
         if PB_RATIO > 5:
-            strike += 1
+            STRIKE += 1
 
-        if strike > 1:
+        if STRIKE > 1:
             SOLD = True
             trading_client.delete_from_watchlist(get_watchlist.id, p['symbol'])
             print('Sold', p['symbol'])
