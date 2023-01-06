@@ -9,24 +9,28 @@ SOLD = False
 get_watchlist = trading_client.get_watchlist_by_name('Long')
 for p in get_watchlist.assets:
     p_fundamentals = finviz.get_stock(p['symbol'])
-    COUNT += 1
 
-    if COUNT % 5 == 0:
-        time.sleep(1)
+    PEG_RATIO = p_fundamentals['PEG']
+    PS_RATIO = p_fundamentals['P/S']
+    PB_RATIO = p_fundamentals['P/B']
 
-    if ((p_fundamentals['PEG'] != '-') and (p_fundamentals['P/E'] != '-')
-            and (p_fundamentals['P/S'] != '-') and (p_fundamentals['P/B'] != '-')):
+    strike = 0
+    if ((PEG_RATIO != '-') and (PS_RATIO != '-') and (PB_RATIO != '-')):
+        PEG_RATIO = float(PEG_RATIO)
+        PS_RATIO = float(PS_RATIO)
+        PB_RATIO = float(PB_RATIO)
 
-        if ((float(p_fundamentals['PEG']) > 2) and (float(p_fundamentals['P/E']) > 30)
-                and (float(p_fundamentals['P/S']) > 10) and (float(p_fundamentals['P/B']) > 5)):
-            trading_client.submit_order(
-                symbol=p['symbol'],
-                side='sell',
-                qty=p.qty
-            )
+        if PEG_RATIO > 2:
+            strike += 1
+        if PS_RATIO > 10:
+            strike += 1
+        if PB_RATIO > 5:
+            strike += 1
+
+        if strike > 1:
             SOLD = True
-            print('Sold', p['symbol'])
             trading_client.delete_from_watchlist(get_watchlist.id, p['symbol'])
+            print('Sold', p['symbol'])
 
 if not SOLD:
     print('All positions are healthy!')
