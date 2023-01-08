@@ -1,7 +1,7 @@
 """Module creates a static webpage"""
 from datetime import date
 from portfolio import TOTAL_MARKET_VALUE, CASH_FLOW, TOTAL_PL_PC, INTRADAY_PL, NET_ASSET_VALUE
-from portfolio import TOP_10_HOLDINGS, CHART, STOCK_NEWS
+from portfolio import TOP_10_HOLDINGS, CHART, STOCK_NEWS, COMPARISON
 
 COMPANY = 'Cernunnos Capital'
 HTML = f"""
@@ -15,10 +15,10 @@ HTML = f"""
    </head>
    <body>
       <main class="container">
-         <div class="container px-4 py-5">
-            <h2 class="pb-2 border-bottom">{ COMPANY }</h2>
-            <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
-               <div class="d-flex flex-column align-items-start gap-2">
+         <img src="cc.png" alt="" width="200px">
+         <div class="container px-4">
+            <div class="row row-cols-1 row-cols-md-2 g-5">
+               <div class="d-flex flex-column align-items-start py-5 gap-2">
                   <h3 class="fw-bold" style="color: #272643;">Automated Investing with Dynamic Rebalancing</h3>
                   <p class="text-muted">Actively managed and fundamentally oriented portfolio that identifies and captures compelling long-term investment opportunities</p>
                   <p class="fw-bold" style="color: #2b0080;">Inception Date: Nov 7, 2022</p>
@@ -27,30 +27,41 @@ HTML = f"""
                <div class="d-flex flex-column align-items-start gap-2" style="padding: 0; margin: 0;">
                   <embed src="{ CHART }" width="100%" height="500">
                </div>
-            </div>
-            <div class="row text-center g-5">
-               <div class="col">
-                  <div class="card">
-                     <h1 class="fw-semibold mb-0" style="color: #2b0080; padding-top: 1rem;">${ NET_ASSET_VALUE }</h1>
-                     <p class="text-muted">Net Asset Value</p>
-                  </div>
+
+               <div class="d-flex flex-column align-items-start gap-2" style="margin: 0;">
+                  <embed src="{ COMPARISON }" width="100%" height="400">
                </div>
-               <div class="col">
-                  <div class="card">
-                     <h1 class="fw-semibold mb-0" style="color: #009688; padding-top: 1rem;">{ TOTAL_PL_PC }%</h1>
-                     <p class="text-muted">Total Returns</p>
-                  </div>
-               </div>
-               <div class="col">
-                  <div class="card">
-                     <h1 class="fw-semibold mb-0" style="color: #2c698d; padding-top: 1rem;">{ INTRADAY_PL }</h1>
-                     <p class="text-muted">Intraday Returns</p>
-                  </div>
-               </div>
-               <div class="col">
-                  <div class="card">
-                     <h1 class="fw-semibold mb-0" style="padding-top: 1rem;">${ CASH_FLOW }</h1>
-                     <p class="text-muted">Cash Flow</p>
+
+               
+               <div class="align-items-md-center">
+                  <div class="row row-cols-2 g-5 text-center">
+                     <div class="d-flex flex-column gap-2">
+                           <div class="card">
+                              <h1 class="fw-semibold mb-0" style="color: #2b0080; padding-top: 1rem;">${ NET_ASSET_VALUE }</h1>
+                              <p class="text-muted">Net Asset Value</p>
+                           </div>
+                     </div>
+               
+                     <div class="d-flex flex-column gap-2">
+                           <div class="card">
+                              <h1 class="fw-semibold mb-0" style="color: #009688; padding-top: 1rem;">{ TOTAL_PL_PC }%</h1>
+                              <p class="text-muted">Total Returns</p>
+                           </div>
+                     </div>
+               
+                     <div class="d-flex flex-column gap-2">
+                           <div class="card">
+                              <h1 class="fw-semibold mb-0" style="color: #2c698d; padding-top: 1rem;">{ INTRADAY_PL }</h1>
+                              <p class="text-muted">Intraday Returns</p>
+                           </div>
+                     </div>
+               
+                     <div class="d-flex flex-column gap-2">
+                           <div class="card">
+                              <h1 class="fw-semibold mb-0" style="padding-top: 1rem;">${ CASH_FLOW }</h1>
+                              <p class="text-muted">Cash Flow</p>
+                           </div>
+                     </div>
                   </div>
                </div>
             </div>

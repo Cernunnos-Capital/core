@@ -3,6 +3,7 @@ import finviz
 import pygal
 from credentials import trading_client
 from pygal.style import DefaultStyle
+from pygal.style import Style
 
 TOTAL_COST_BASIS = 0.0
 TOTAL_MARKET_VALUE = 0.0
@@ -15,6 +16,7 @@ CHART = ''
 CASH_FLOW = 0.0
 BASE_RATE = 11.0
 NET_ASSET_VALUE = 0
+COMPARISON = ''
 
 
 def get_holdings(TOTAL_COST_BASIS, TOTAL_MARKET_VALUE,
@@ -130,6 +132,28 @@ def create_pie_chart(sectors):
     return pie_chart.render_data_uri()
 
 
+def create_bar_chart(TOTAL_PL_PC):
+    """Renders horizontal bar chart using pygal"""
+    custom_style = Style(colors=('#d6002a', '#0c2a31', '#0090ba', '#5e17eb'))
+    bar_chart = pygal.HorizontalBar(truncate_legend=25,
+                                    style=custom_style, legend_at_top=True, legend_box_size=20, print_values=True)
+    bar_chart.title = 'Cernunnos Capital vs MARKET (%)'
+    spy = round(
+        ((float(trading_client.get_latest_bar('SPY').c) - 379.95) / 379.95) * 100, 2)
+    dia = round(
+        ((float(trading_client.get_latest_bar('DIA').c) - 328.42) / 328.42) * 100, 2)
+    qqqm = round(
+        ((float(trading_client.get_latest_bar('QQQM').c) - 110.06) / 110.06) * 100, 2)
+    arkk = round(
+        ((float(trading_client.get_latest_bar('ARKK').c) - 34.99) / 34.99) * 100, 2)
+
+    bar_chart.add('S&P 500', spy)
+    bar_chart.add('Dow Jones', dia)
+    bar_chart.add('Nasdaq', qqqm)
+    bar_chart.add('Cernunnos Capital', TOTAL_PL_PC)
+    return bar_chart.render_data_uri()
+
+
 """Execution"""
 PORTFOLIO = get_holdings(TOTAL_COST_BASIS, TOTAL_MARKET_VALUE,
                          UNREALIZED_INTRADAY_PL, TOTAL_PL_PC, INTRADAY_PL, CASH_FLOW)
@@ -148,3 +172,4 @@ INTRADAY_PL = PORTFOLIO['INTRADAY_PL']
 CASH_FLOW = PORTFOLIO['CASH_FLOW']
 TOP_10_HOLDINGS = DISPLAY_PORTFOLIO_DATA['TOP_10_HOLDINGS']
 STOCK_NEWS = DISPLAY_PORTFOLIO_DATA['STOCK_NEWS']
+COMPARISON = create_bar_chart(TOTAL_PL_PC)
