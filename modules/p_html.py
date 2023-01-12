@@ -15,7 +15,7 @@ HTML = f"""
    </head>
    <body>
       <main class="container">
-         <img src="cc.png" alt="" width="200px">
+         <img src="cc.png" alt="" width="200px" style="position: relative; bottom: 20px;">
          <div class="container px-4">
             <div class="row row-cols-1 row-cols-md-2 g-5">
                <div class="d-flex flex-column align-items-start py-5 gap-2">
@@ -69,7 +69,7 @@ HTML = f"""
          <h2 class="text-center" style="padding-top: 3rem;">Top 10 Holdings</h2>
          <p class="text-muted text-center">As of { date.today().strftime("%B %d, %Y") }</p>
          <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
                <thead>
                   <tr>
                      <th style="width: 40%;"></th>
