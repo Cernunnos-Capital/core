@@ -11,6 +11,13 @@ HTML = f"""
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>{ COMPANY }</title>
+      <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+      <link rel="manifest" href="favicon/site.webmanifest">
+      <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#00aba9">
+      <meta name="theme-color" content="#ffffff">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
    </head>
    <body>
@@ -22,7 +29,7 @@ HTML = f"""
                   <h3 class="fw-bold" style="color: #272643;">Automated Investing with Dynamic Rebalancing</h3>
                   <p class="text-muted">Actively managed and fundamentally oriented portfolio that identifies and captures compelling long-term investment opportunities</p>
                   <p class="fw-bold" style="color: #2b0080;">Inception Date: Nov 7, 2022</p>
-                  <a href="https://github.com/atreyasinha/autoinvest" target="_blank" class="btn btn-dark btn-lg">Source Code</a>
+                  <iframe src="https://embeds.beehiiv.com/2627520d-8805-48c6-98ea-4e2cfe71353a?slim=true" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
                </div>
                <div class="d-flex flex-column align-items-start gap-2" style="padding: 0; margin: 0;">
                   <embed src="{ CHART }" width="100%" height="500">
