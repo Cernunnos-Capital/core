@@ -13,7 +13,7 @@ for p in get_watchlist.assets:
         PEG_RATIO = p_fundamentals['PEG']
         PS_RATIO = p_fundamentals['P/S']
         PB_RATIO = p_fundamentals['P/B']
-    except:
+    except:  # pylint: disable=bare-except
         time.sleep(1)
         PEG_RATIO = p_fundamentals['PEG']
         PS_RATIO = p_fundamentals['P/S']
