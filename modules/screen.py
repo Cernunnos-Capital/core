@@ -2,14 +2,18 @@
 import os
 import sys
 import random
+import finviz
 from finviz.screener import Screener
 
 # screening attributes
 STOCK_SCREENER = os.environ['URL'].split(',')
+STOCK_SCREENER_FALLBACK = os.environ['URL_FALLBACK'].split(',')
 
 # error handling for no result
 try:
     stock_list = Screener(filters=STOCK_SCREENER)
+except finviz.helper_functions.error_handling.NoResults:
+    stock_list = Screener(filters=STOCK_SCREENER_FALLBACK)
 except:  # pylint: disable=bare-except
     print("Better luck ")
     sys.exit()
