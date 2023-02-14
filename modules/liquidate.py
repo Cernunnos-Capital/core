@@ -10,7 +10,7 @@ for p in get_watchlist.assets:
     try:
         p_fundamentals = finviz.get_stock(p['symbol'])
     except:  # pylint: disable=bare-except
-        time.sleep(2)
+        time.sleep(3)
         p_fundamentals = finviz.get_stock(p['symbol'])
 
     PEG_RATIO = p_fundamentals['PEG']
