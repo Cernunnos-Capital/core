@@ -12,7 +12,7 @@ for p in get_watchlist.assets:
 
     while GET_FUNDAMENTALS:
         try:
-            p_fundamentals = finviz.get_stock(p['Ticker'])
+            p_fundamentals = finviz.get_stock(p['symbol'])
             GET_FUNDAMENTALS = False
         except:  # pylint: disable=bare-except
             TIME += 1
