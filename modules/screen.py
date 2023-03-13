@@ -21,11 +21,17 @@ except:  # pylint: disable=bare-except
 
 tickers = []
 for stock in stock_list:
-    try:
-        p_fundamentals = finviz.get_stock(stock['Ticker'])
-    except:  # pylint: disable=bare-except
-        time.sleep(3)
-        p_fundamentals = finviz.get_stock(stock['Ticker'])
+    TIME = 0
+    GET_FUNDAMENTALS = True
+
+    while GET_FUNDAMENTALS:
+        try:
+            p_fundamentals = finviz.get_stock(stock['Ticker'])
+            GET_FUNDAMENTALS = False
+        except:  # pylint: disable=bare-except
+            TIME += 1
+            time.sleep(TIME)
+            print(f'Trying {TIME} sec.')
 
     eps_growth = str(p_fundamentals['EPS next 5Y'])
     if stock['Industry'] == 'Banks - Regional':
