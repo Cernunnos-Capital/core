@@ -19,6 +19,13 @@ for p in get_watchlist.assets:
             time.sleep(TIME)
             print(f'Trying {TIME} sec.')
 
+            if TIME > 5:
+                print(f"{p['symbol']}, Not found")
+                GET_FUNDAMENTALS = False
+
+    if TIME > 5:
+        continue
+
     PEG_RATIO = p_fundamentals['PEG']
     PS_RATIO = p_fundamentals['P/S']
     PB_RATIO = p_fundamentals['P/B']
