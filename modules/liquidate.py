@@ -7,11 +7,17 @@ from credentials import trading_client
 SOLD = False
 get_watchlist = trading_client.get_watchlist_by_name('Long')
 for p in get_watchlist.assets:
-    try:
-        p_fundamentals = finviz.get_stock(p['symbol'])
-    except:  # pylint: disable=bare-except
-        time.sleep(3)
-        p_fundamentals = finviz.get_stock(p['symbol'])
+    TIME = 0
+    GET_FUNDAMENTALS = True
+
+    while GET_FUNDAMENTALS:
+        try:
+            p_fundamentals = finviz.get_stock(p['Ticker'])
+            GET_FUNDAMENTALS = False
+        except:  # pylint: disable=bare-except
+            TIME += 1
+            time.sleep(TIME)
+            print(f'Trying {TIME} sec.')
 
     PEG_RATIO = p_fundamentals['PEG']
     PS_RATIO = p_fundamentals['P/S']
