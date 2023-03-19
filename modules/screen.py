@@ -84,6 +84,9 @@ def trim(data, ins_trn, pe_ratio, pfcf, peg, roe):
             if pe_ratio > 3.494 or pfcf > 50:
                 return
 
+        case _:
+            return
+
     tickers.append(data['Ticker'])
 
 
