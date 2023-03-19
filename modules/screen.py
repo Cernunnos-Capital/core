@@ -42,7 +42,8 @@ def trim(data, ins_trn, pe_ratio, pfcf, peg, roe):
         if pe_ratio > 13.87 or roe < 20 or pfcf > 10.77:
             return
 
-    match data['Sector']:
+    sector = data['Sector']
+    match sector:
         case 'Basic Materials':
             if pe_ratio > 4.164 or pfcf > 20.60:
                 return
