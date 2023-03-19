@@ -4,7 +4,7 @@ import sys
 import random
 import finviz
 from finviz.screener import Screener
-import time
+from fetch import fetch_fundamentals
 
 # screening attributes
 STOCK_SCREENER = os.environ['URL'].split(',')
@@ -19,49 +19,90 @@ except:  # pylint: disable=bare-except
     print("Market is Overvalued!")
     sys.exit()
 
+
+def str_perc(metric):
+    """Convert data to operatable ratios"""
+    metric = str(metric)
+
+    if metric != '-':
+        metric = metric.replace('%', '')
+        metric = float(metric)
+    else:
+        metric = 0.0
+
+    return metric
+
+
+def trim(data, ins_trn, pe_ratio, pfcf, peg, roe):
+    """Trim data as per the sector"""
+    if peg > 2 or ins_trn < -20:
+        return
+
+    if data['Industry'] == 'Banks - Regional':
+        if pe_ratio > 13.87 or roe < 20 or pfcf > 10.77:
+            return
+
+    sector = str(data['Sector'])
+    match sector:
+        case 'Basic Materials':
+            if pe_ratio > 4.164 or pfcf > 20.60:
+                return
+
+        case 'Communication Services':
+            if pe_ratio > 22.244 or pfcf > 34.14:
+                return
+
+        case 'Consumer Cyclical':
+            if pe_ratio > 22.284 or pfcf > 40.41:
+                return
+
+        case 'Consumer Defensive':
+            if pe_ratio > 23.264 or pfcf > 50:
+                return
+
+        case 'Energy':
+            if pe_ratio > 6.214 or pfcf > 8.27:
+                return
+
+        case 'Healthcare':
+            if pe_ratio > 25.09 or pfcf > 30.21:
+                return
+
+        case 'Industrials':
+            if pe_ratio > 19.584 or pfcf > 29.18:
+                return
+
+        case 'Real Estate':
+            if pe_ratio > 25.974 or pfcf > 40.34:
+                return
+
+        case 'Technology':
+            if pe_ratio > 28.914 or pfcf > 37.95:
+                return
+
+        case 'Utilities':
+            if pe_ratio > 3.494 or pfcf > 50:
+                return
+
+        case _:
+            return
+
+    tickers.append(data['Ticker'])
+
+
 tickers = []
 for stock in stock_list:
-    TIME = 0
-    GET_FUNDAMENTALS = True
+    stock_detail = fetch_fundamentals(stock)
 
-    while GET_FUNDAMENTALS:
-        try:
-            p_fundamentals = finviz.get_stock(stock['Ticker'])
-            GET_FUNDAMENTALS = False
-        except:  # pylint: disable=bare-except
-            TIME += 1
-            time.sleep(TIME)
-            print(f'Trying {TIME} sec.')
+    insider_trans = str_perc(stock_detail['Insider Trans'])
+    price_to_earnings = str_perc(stock_detail['P/E'])
+    price_to_fcf = str_perc(stock_detail['P/FCF'])
+    price_to_earn_gwth = str_perc(stock_detail['PEG'])
+    return_on_equity = str_perc(stock_detail['ROE'])
 
-    eps_growth = str(p_fundamentals['EPS next 5Y'])
-    if stock['Industry'] == 'Banks - Regional':
-        if eps_growth == '-':
-            continue
+    trim(stock, insider_trans, price_to_earnings,
+         price_to_fcf, price_to_earn_gwth, return_on_equity)
 
-        eps_growth = eps_growth.replace('%', '')
-        eps_growth = float(eps_growth)
-
-        if eps_growth < 10:
-            continue
-
-    if stock['Sector'] == 'Energy':
-        if eps_growth == '-':
-            continue
-
-        eps_growth = eps_growth.replace('%', '')
-        eps_growth = float(eps_growth)
-
-        if eps_growth < -1:
-            continue
-
-    insider_trans = str(p_fundamentals['Insider Trans'])
-
-    if insider_trans != '-':
-        insider_trans = insider_trans.replace('%', '')
-        insider_trans = float(insider_trans)
-
-    if insider_trans == '-' or insider_trans > -20.00:
-        tickers.append(stock['Ticker'])
 
 # restrict to 10 stocks
 if len(tickers) > 10:
