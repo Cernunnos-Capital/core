@@ -1,4 +1,4 @@
-aiohttp==3.8.2
+aiohttp==3.8.1
 aiosignal==1.2.0
 alpaca-trade-api==2.3.0
 astroid==2.12.12
