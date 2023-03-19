@@ -23,7 +23,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Execute script
+      - name: Accumulate
         env:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
@@ -33,4 +33,11 @@ jobs:
           BUYING_POWER: ${{ secrets.BUYING_POWER }}
         run: |
           python modules/order.py
+
+      - name: Liquidate
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+        run: |
           python modules/liquidate.py
