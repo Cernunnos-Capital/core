@@ -2,9 +2,9 @@
 import os
 import sys
 import random
+import time
 import finviz
 from finviz.screener import Screener
-import time
 
 # screening attributes
 STOCK_SCREENER = os.environ['URL'].split(',')
@@ -21,6 +21,7 @@ except:  # pylint: disable=bare-except
 
 
 def str_perc(metric):
+    """Convert data to operatable ratios"""
     metric = str(metric)
 
     if metric != '-':
@@ -32,45 +33,46 @@ def str_perc(metric):
     return metric
 
 
-def trim(stock, insider_trans, price_to_earnings, price_to_fcf, price_to_earn_gwth):
-    if price_to_earn_gwth > 2 or insider_trans < -20:
+def trim(data, ins_trn, pe_ratio, pfcf, peg):
+    """Trim data as per the sector"""
+    if peg > 2 or ins_trn < -20:
         return
-    elif stock['Sector'] == 'Basic Materials':
-        if price_to_earnings > 4.164 or price_to_fcf > 20.60:
+    if data['Sector'] == 'Basic Materials':
+        if pe_ratio > 4.164 or pfcf > 20.60:
             return
-    elif stock['Sector'] == 'Communication Services':
-        if price_to_earnings > 22.244 or price_to_fcf > 34.14:
+    if data['Sector'] == 'Communication Services':
+        if pe_ratio > 22.244 or pfcf > 34.14:
             return
-    elif stock['Sector'] == 'Consumer Cyclical':
-        if price_to_earnings > 22.284 or price_to_fcf > 40.41:
+    if data['Sector'] == 'Consumer Cyclical':
+        if pe_ratio > 22.284 or pfcf > 40.41:
             return
-    elif stock['Sector'] == 'Consumer Defensive':
-        if price_to_earnings > 23.264 or price_to_fcf > 50:
+    if data['Sector'] == 'Consumer Defensive':
+        if pe_ratio > 23.264 or pfcf > 50:
             return
-    elif stock['Sector'] == 'Energy':
-        if price_to_earnings > 6.214 or price_to_fcf > 8.27:
+    if data['Sector'] == 'Energy':
+        if pe_ratio > 6.214 or pfcf > 8.27:
             return
-    elif stock['Industry'] == 'Banks - Regional':
+    if data['Industry'] == 'Banks - Regional':
         roe = str_perc(p_fundamentals['ROE'])
-        if price_to_earnings > 13.87 or roe < 20 or price_to_fcf > 10.77:
+        if pe_ratio > 13.87 or roe < 20 or pfcf > 10.77:
             return
-    elif stock['Sector'] == 'Healthcare':
-        if price_to_earnings > 25.09 or price_to_fcf > 30.21:
+    if data['Sector'] == 'Healthcare':
+        if pe_ratio > 25.09 or pfcf > 30.21:
             return
-    elif stock['Sector'] == 'Industrials':
-        if price_to_earnings > 19.584 or price_to_fcf > 29.18:
+    if data['Sector'] == 'Industrials':
+        if pe_ratio > 19.584 or pfcf > 29.18:
             return
-    elif stock['Sector'] == 'Real Estate':
-        if price_to_earnings > 25.974 or price_to_fcf > 40.34:
+    if data['Sector'] == 'Real Estate':
+        if pe_ratio > 25.974 or pfcf > 40.34:
             return
-    elif stock['Sector'] == 'Technology':
-        if price_to_earnings > 28.914 or price_to_fcf > 37.95:
+    if data['Sector'] == 'Technology':
+        if pe_ratio > 28.914 or pfcf > 37.95:
             return
-    elif stock['Sector'] == 'Utilities':
-        if price_to_earnings > 3.494 or price_to_fcf > 50:
+    if data['Sector'] == 'Utilities':
+        if pe_ratio > 3.494 or pfcf > 50:
             return
 
-    tickers.append(stock['Ticker'])
+    tickers.append(data['Ticker'])
 
 
 tickers = []
