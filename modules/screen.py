@@ -4,7 +4,7 @@ import sys
 import random
 import finviz
 from finviz.screener import Screener
-from fetch import fetch_fundamentals
+from fetch import fetch_fundamentals, str_perc
 from credentials import trading_client
 
 # screening attributes
@@ -32,19 +32,6 @@ ratios = {'Basic Materials': [5, 22.5],
           'Utilities': [5, 15],
           'Financial': [15, 10]
           }
-
-
-def str_perc(metric):
-    """Convert data to operatable ratios"""
-    metric = str(metric)
-
-    if metric != '-':
-        metric = metric.replace('%', '')
-        metric = float(metric)
-    else:
-        metric = 0.0
-
-    return metric
 
 
 def trim(data, p_e, p_fcf):

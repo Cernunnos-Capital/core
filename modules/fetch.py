@@ -13,8 +13,8 @@ def fetch_fundamentals(stock):
         try:
             try:
                 data = finviz.get_stock(stock['Ticker'])
-            except KeyError:
-                data = finviz.get_stock(stock['symbol'])
+            except TypeError:
+                data = finviz.get_stock(stock.symbol)
             get_fundamentals = False
         except requests.exceptions.HTTPError:
             wait += 1
@@ -25,3 +25,16 @@ def fetch_fundamentals(stock):
             get_fundamentals = False
 
     return data
+
+
+def str_perc(metric):
+    """Convert data to operatable ratios"""
+    metric = str(metric)
+
+    if metric != '-':
+        metric = metric.replace('%', '')
+        metric = float(metric)
+    else:
+        metric = 0.0
+
+    return metric
