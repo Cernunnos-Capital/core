@@ -13,19 +13,21 @@ for p in trading_client.list_positions():
     PS_RATIO = str_perc(data['P/S'])
     PB_RATIO = str_perc(data['P/B'])
     INSIDER_TRANS = str_perc(data['Insider Trans'])
+    TARGET_PRICE = str_perc(data['Target Price'])
+    CURRENT_PRICE = str_perc(data['Price'])
     RSI = str_perc(data['RSI (14)'])
 
     STRIKE = 0
-    if float(PEG_RATIO) > 2:
+    if PEG_RATIO > 2:
         STRIKE += 1
-    if float(PS_RATIO) > 10:
+    if PS_RATIO > 10:
         STRIKE += 1
-    if float(PB_RATIO) > 5:
+    if PB_RATIO > 5:
         STRIKE += 1
     if INSIDER_TRANS < -20:
         STRIKE += 1
 
-    if STRIKE > 1 and RSI > 60:
+    if (STRIKE > 1) and (RSI > 60) and (CURRENT_PRICE > TARGET_PRICE):
         SOLD = True
         QTY = float(trading_client.get_position(p.symbol).qty)
         TRAILING_SELL_QTY = int(QTY)
