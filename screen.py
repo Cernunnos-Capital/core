@@ -2,8 +2,8 @@
 import os
 import sys
 import random
-import finviz
-from finviz.screener import Screener
+# import finviz
+from autoviz.screener import Screener
 from fetch import fetch_fundamentals
 from credentials import trading_client
 
@@ -14,8 +14,8 @@ STOCK_SCREENER_FALLBACK = os.environ['URL_FALLBACK'].split(',')
 # error handling for no result
 try:
     stock_list = Screener(filters=STOCK_SCREENER)
-except finviz.helper_functions.error_handling.NoResults:
-    stock_list = Screener(filters=STOCK_SCREENER_FALLBACK)
+# except finviz.helper_functions.error_handling.NoResults:
+#     stock_list = Screener(filters=STOCK_SCREENER_FALLBACK)
 except:  # pylint: disable=bare-except
     print("Market is Overvalued!")
     sys.exit()
