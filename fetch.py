@@ -1,6 +1,6 @@
-"""Module fetches stock details from finviz"""
+"""Module fetches stock details from autoviz"""
 import time
-import finviz
+import autoviz
 import requests
 
 
@@ -12,9 +12,9 @@ def fetch_fundamentals(stock):
     while get_fundamentals:
         try:
             try:
-                data = finviz.get_stock(stock['Ticker'])
+                data = autoviz.get_stock(stock['Ticker'])
             except KeyError:
-                data = finviz.get_stock(stock['symbol'])
+                data = autoviz.get_stock(stock['symbol'])
             get_fundamentals = False
         except requests.exceptions.HTTPError:
             wait += 1

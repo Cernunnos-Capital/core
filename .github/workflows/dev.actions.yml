@@ -32,7 +32,7 @@ jobs:
           URL_FALLBACK: ${{ secrets.URL_FALLBACK }}
           BUYING_POWER: ${{ secrets.BUYING_POWER }}
         run: |
-          python modules/order.py
+          python order.py
 
       - name: Liquidate
         env:
@@ -40,4 +40,4 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
         run: |
-          python modules/liquidate.py
+          python liquidate.py
