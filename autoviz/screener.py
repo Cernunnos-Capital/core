@@ -344,58 +344,58 @@ class Screener(object):
 
         return export_to_csv(self.headers, self.data, f"{filename}.csv")
 
-    def get_charts(self, period="d", size="l", chart_type="c", ta="1"):
-        """
-        Downloads the charts of all tickers shown by the table.
+    # def get_charts(self, period="d", size="l", chart_type="c", ta="1"):
+    #     """
+    #     Downloads the charts of all tickers shown by the table.
 
-        :param period: table period eg. : 'd', 'w' or 'm' for daily, weekly and monthly periods
-        :type period: str
-        :param size: table size eg.: 'l' for large or 's' for small - choose large for better quality but higher size
-        :type size: str
-        :param chart_type: chart type: 'c' for candles or 'l' for lines
-        :type chart_type: str
-        :param ta: technical analysis eg.: '1' to show ta '0' to hide ta
-        :type ta: str
-        """
+    #     :param period: table period eg. : 'd', 'w' or 'm' for daily, weekly and monthly periods
+    #     :type period: str
+    #     :param size: table size eg.: 'l' for large or 's' for small - choose large for better quality but higher size
+    #     :type size: str
+    #     :param chart_type: chart type: 'c' for candles or 'l' for lines
+    #     :type chart_type: str
+    #     :param ta: technical analysis eg.: '1' to show ta '0' to hide ta
+    #     :type ta: str
+    #     """
 
-        encoded_payload = urlencode(
-            {"ty": chart_type, "ta": ta, "p": period, "s": size}
-        )
+    #     encoded_payload = urlencode(
+    #         {"ty": chart_type, "ta": ta, "p": period, "s": size}
+    #     )
 
-        sequential_data_scrape(
-            scrape.download_chart_image,
-            [
-                f"https://finviz.com/chart.ashx?{encoded_payload}&t={row.get('Ticker')}"
-                for row in self.data
-            ],
-            self._user_agent,
-        )
+    #     sequential_data_scrape(
+    #         scrape.download_chart_image,
+    #         [
+    #             f"https://finviz.com/chart.ashx?{encoded_payload}&t={row.get('Ticker')}"
+    #             for row in self.data
+    #         ],
+    #         self._user_agent,
+    #     )
 
-    def get_ticker_details(self):
-        """
-        Downloads the details of all tickers shown by the table.
-        """
+    # def get_ticker_details(self):
+    #     """
+    #     Downloads the details of all tickers shown by the table.
+    #     """
 
-        ticker_data = sequential_data_scrape(
-            scrape.download_ticker_details,
-            [
-                f"https://finviz.com/quote.ashx?&t={row.get('Ticker')}"
-                for row in self.data
-            ],
-            self._user_agent,
-        )
+    #     ticker_data = sequential_data_scrape(
+    #         scrape.download_ticker_details,
+    #         [
+    #             f"https://finviz.com/quote.ashx?&t={row.get('Ticker')}"
+    #             for row in self.data
+    #         ],
+    #         self._user_agent,
+    #     )
 
-        for entry in ticker_data:
-            for key, value in entry.items():
-                for ticker_generic in self.data:
-                    if ticker_generic.get("Ticker") == key:
-                        if "Sales" not in self.headers:
-                            self.headers.extend(list(value[0].keys()))
+    #     for entry in ticker_data:
+    #         for key, value in entry.items():
+    #             for ticker_generic in self.data:
+    #                 if ticker_generic.get("Ticker") == key:
+    #                     if "Sales" not in self.headers:
+    #                         self.headers.extend(list(value[0].keys()))
 
-                        ticker_generic.update(value[0])
-                        self.analysis.extend(value[1])
+    #                     ticker_generic.update(value[0])
+    #                     self.analysis.extend(value[1])
 
-        return self.data
+    #     return self.data
 
     def __check_rows(self):
         """
