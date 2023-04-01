@@ -2,9 +2,8 @@
 import os
 import sys
 import random
-# import finviz
 from autoviz.screener import Screener
-from fetch import fetch_fundamentals
+from fetch import fetch_fundamentals, ratios, str_perc
 from credentials import trading_client
 
 # screening attributes
@@ -14,37 +13,9 @@ STOCK_SCREENER_FALLBACK = os.environ['URL_FALLBACK'].split(',')
 # error handling for no result
 try:
     stock_list = Screener(filters=STOCK_SCREENER)
-# except finviz.helper_functions.error_handling.NoResults:
-#     stock_list = Screener(filters=STOCK_SCREENER_FALLBACK)
 except:  # pylint: disable=bare-except
     print("Market is Overvalued!")
     sys.exit()
-
-ratios = {'Basic Materials': [5, 22.5],
-          'Communication Services': [22.5, 35],
-          'Consumer Cyclical': [22.5, 35],
-          'Consumer Defensive': [22.5, 35],
-          'Energy': [7, 8.5],
-          'Healthcare': [25, 30],
-          'Industrials': [20, 30],
-          'Real Estate': [25, 35],
-          'Technology': [30, 40],
-          'Utilities': [5, 15],
-          'Financial': [15, 10]
-          }
-
-
-def str_perc(metric):
-    """Convert data to operatable ratios"""
-    metric = str(metric)
-
-    if metric != '-':
-        metric = metric.replace('%', '')
-        metric = float(metric)
-    else:
-        metric = 0.0
-
-    return metric
 
 
 def trim(data, p_e, p_fcf):
@@ -55,6 +26,7 @@ def trim(data, p_e, p_fcf):
     if p_e > industry_pe or p_fcf > industry_pfcf:
         return
 
+    print(data['Company'])
     tickers.append(data['Ticker'])
 
 
