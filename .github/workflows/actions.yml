@@ -1,12 +1,8 @@
 name: Morning trade
 
-# on:
-#   schedule:
-#     - cron: "00 16 * * 1-5" # M-F 9:30AM PDT
 on:
-  push:
-    branches:
-      - "main"
+  schedule:
+    - cron: "00 16 * * 1-5" # M-F 9:30AM PDT
 
 jobs:
   stg:
