@@ -1,9 +1,5 @@
-from datetime import datetime
-
-from lxml import etree
-
+"""Module gets stock data from finviz"""
 from autoviz.helper_functions.request_functions import http_request_get
-from autoviz.helper_functions.scraper_functions import get_table
 
 STOCK_URL = "https://finviz.com/quote.ashx"
 NEWS_URL = "https://finviz.com/news.ashx"
@@ -12,6 +8,7 @@ STOCK_PAGE = {}
 
 
 def get_page(ticker):
+    """Checks stock page"""
     global STOCK_PAGE
 
     if ticker not in STOCK_PAGE:
@@ -50,7 +47,7 @@ def get_stock(ticker):
             if row[column] == "EPS next Y" and "EPS next Y" in data.keys():
                 data["EPS growth next Y"] = row[column + 1]
                 continue
-            elif row[column] == "Volatility":
+            if row[column] == "Volatility":
                 vols = row[column + 1].split()
                 data["Volatility (Week)"] = vols[0]
                 data["Volatility (Month)"] = vols[1]
