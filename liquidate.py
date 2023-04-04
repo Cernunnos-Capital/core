@@ -35,25 +35,29 @@ for p in trading_client.list_positions():
         QTY = float(trading_client.get_position(p.symbol).qty)
         TRAILING_SELL_QTY = int(QTY)
 
-        if TRAILING_SELL_QTY > 0:
+        try:
+            if TRAILING_SELL_QTY > 0:
+                trading_client.submit_order(
+                    side='sell',
+                    symbol=p.symbol,
+                    type='trailing_stop',
+                    trail_percent='5',
+                    time_in_force='gtc',
+                    qty=TRAILING_SELL_QTY,
+                )
+
+            LIQUIDATION_SELL_QTY = QTY - TRAILING_SELL_QTY
+
             trading_client.submit_order(
                 side='sell',
                 symbol=p.symbol,
-                type='trailing_stop',
-                trail_percent='5',
-                time_in_force='gtc',
-                qty=TRAILING_SELL_QTY,
+                qty=LIQUIDATION_SELL_QTY,
             )
 
-        LIQUIDATION_SELL_QTY = QTY - TRAILING_SELL_QTY
+            print('Sold', p.symbol)
+        except:  # pylint: disable=bare-except
+            print(p.symbol, ': Sell order already placed!')
 
-        trading_client.submit_order(
-            side='sell',
-            symbol=p.symbol,
-            qty=LIQUIDATION_SELL_QTY,
-        )
-
-        print('Sold', p.symbol)
 
 if not SOLD:
     print('All positions are healthy!')
