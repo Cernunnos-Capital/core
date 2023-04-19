@@ -8,7 +8,6 @@ from credentials import trading_client
 
 # screening attributes
 STOCK_SCREENER = os.environ['URL'].split(',')
-STOCK_SCREENER_FALLBACK = os.environ['URL_FALLBACK'].split(',')
 
 # error handling for no result
 try:
