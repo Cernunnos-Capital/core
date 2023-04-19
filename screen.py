@@ -13,7 +13,7 @@ STOCK_SCREENER = os.environ['URL'].split(',')
 try:
     stock_list = Screener(filters=STOCK_SCREENER)
 except:  # pylint: disable=bare-except
-    print("Market is Overvalued")
+    print("Market is Overvalued!")
     sys.exit()
 
 
