@@ -19,8 +19,6 @@ for p in trading_client.list_positions():
     RSI = str_perc(data['RSI (14)'])
 
     STRIKE = 0
-    if PE_RATIO > ratios[data['Sector']][0]:
-        STRIKE += 1
     if PEG_RATIO > 2:
         STRIKE += 1
     if PS_RATIO > 10:
@@ -30,7 +28,7 @@ for p in trading_client.list_positions():
     if INSIDER_TRANS < -20:
         STRIKE += 1
 
-    if (STRIKE > 1) and (RSI > 60) and (CURRENT_PRICE > TARGET_PRICE):
+    if (PE_RATIO > ratios[data['Sector']][0]) and (STRIKE > 1) and (RSI > 60) and (CURRENT_PRICE > TARGET_PRICE):
         SOLD = True
         QTY = float(trading_client.get_position(p.symbol).qty)
         TRAILING_SELL_QTY = int(QTY)
