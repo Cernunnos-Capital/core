@@ -28,8 +28,6 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
           URL: ${{ secrets.URL }}
-          URL_FALLBACK: ${{ secrets.URL_FALLBACK }}
-          BUYING_POWER: ${{ secrets.BUYING_POWER }}
         run: |
           python order.py
 
@@ -65,8 +63,6 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
           URL: ${{ secrets.URL }}
-          URL_FALLBACK: ${{ secrets.URL_FALLBACK }}
-          BUYING_POWER: ${{ secrets.BUYING_POWER }}
         run: |
           python order.py
 
