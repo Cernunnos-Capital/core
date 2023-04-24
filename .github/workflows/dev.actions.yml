@@ -22,6 +22,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pylint
+
+      - name: Lint
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+        run: |
+          pylint *.py
 
       - name: Accumulate
         env:

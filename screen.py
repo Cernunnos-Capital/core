@@ -1,6 +1,5 @@
 """Module screens stocks from Finviz"""
 import os
-import sys
 import random
 from autoviz.screener import Screener
 from fetch import fetch_fundamentals, ratios, str_perc
@@ -12,7 +11,7 @@ STOCK_SCREENER = os.environ['URL'].split(',')
 # error handling for no result
 try:
     stock_list = Screener(filters=STOCK_SCREENER)
-except Exception as e:  # pylint: disable=bare-except
+except Exception as e:  # pylint: disable=broad-exception-caught
     print(e)
 
 
@@ -52,7 +51,7 @@ if len(tickers) == 0:
     for p in trading_client.list_positions():
         loss = float(p.unrealized_plpc)
 
-        if loss < 0 and loss > -0.75:
+        if 0 > loss > -0.75:
             tickers.append(p.symbol)
 
 # restrict to 10 stocks
