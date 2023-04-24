@@ -16,7 +16,8 @@ for i in trading_client.get_calendar(start=today, end=last_day):
     trading_days += 1
 
 # captial available per stock
-cost_basis = float(trading_client.get_account().cash) / trading_days
+cost_basis = float(trading_client.get_account().cash) / \
+    (trading_days * float(len(tickers)))
 
 # submit buy order
 for sym in tickers:
