@@ -11,13 +11,13 @@ account = trading_client.get_account()
 today = date.today()
 last_day = f'{today.year}-{today.month}-{calendar.monthrange(today.year, today.month)[1]}'
 
-trading_days = 0
+TRADING_DAYS = 0
 for i in trading_client.get_calendar(start=today, end=last_day):
-    trading_days += 1
+    TRADING_DAYS += 1
 
 # captial available per stock
 cost_basis = float(trading_client.get_account().cash) / \
-    (trading_days * float(len(tickers)))
+    (TRADING_DAYS * float(len(tickers)))
 
 # submit buy order
 for sym in tickers:
