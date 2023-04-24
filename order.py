@@ -1,7 +1,6 @@
 """Module submits buy order using Alpaca API"""
 import calendar
 from datetime import date
-import os
 from credentials import trading_client
 from screen import tickers
 
