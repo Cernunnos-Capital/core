@@ -1,4 +1,4 @@
-name: Manual trade trigger
+name: Trigger order
 
 on: [workflow_dispatch]
 

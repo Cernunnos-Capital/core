@@ -1,4 +1,4 @@
-name: Lint
+name: Code Analysis
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - "main"
 
 jobs:
-  QAT:
+  Lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
