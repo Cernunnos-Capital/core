@@ -143,7 +143,8 @@ class Screener(object):
         """
         Adds more filters to the screener. Example usage:
 
-        stock_list = Screener(filters=['cap_large'])  # All the stocks with large market cap
+        # All the stocks with large market cap
+        stock_list = Screener(filters=['cap_large'])
         # After analyzing you decide you want to see which of the stocks have high dividend yield
         # and show their performance:
         stock_list(filters=['fa_div_high'], table='Performance')
@@ -366,9 +367,12 @@ class Screener(object):
     def __get_table_headers(self):
         """ Private function used to return table headers. """
 
-        return self._page_content.cssselect('tr[valign="middle"]')[0].xpath(
-            "td//text()"
-        )
+        headers = self._page_content.cssselect(
+            'tr[valign="middle"]')[0].xpath("td//text()")
+
+        """Fix \r\n - on 04/27/2023
+            - remove \r\n in headers"""
+        return list(filter(lambda x: x.strip(), headers))
 
     def __search_screener(self):
         """ Private function used to return data from the FinViz screener. """
