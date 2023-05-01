@@ -9,7 +9,7 @@ for p in trading_client.list_positions():
     if data is None:
         continue
 
-    PE_RATIO = str_perc(data['P/E'])
+    FWD_PE_RATIO = str_perc(data['Forward P/E'])
     PEG_RATIO = str_perc(data['PEG'])
     PS_RATIO = str_perc(data['P/S'])
     PB_RATIO = str_perc(data['P/B'])
@@ -28,7 +28,7 @@ for p in trading_client.list_positions():
     if INSIDER_TRANS < -20:
         STRIKE += 1
 
-    if (PE_RATIO > ratios[data['Sector']][0]) and (STRIKE > 1) \
+    if (FWD_PE_RATIO > ratios[data['Sector']][0]) and (STRIKE > 1) \
             and (RSI > 60) and (CURRENT_PRICE > TARGET_PRICE):
         SOLD = True
         QTY = float(trading_client.get_position(p.symbol).qty)
