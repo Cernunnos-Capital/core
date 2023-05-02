@@ -1,7 +1,7 @@
 """Module submits buy order using Alpaca API"""
 import calendar
 from datetime import date
-from credentials import trading_client
+from credentials import trading_client, BASE_URL
 from screen import tickers
 
 # account info
@@ -16,8 +16,11 @@ for i in trading_client.get_calendar(start=today, end=last_day):
     TRADING_DAYS += 1
 
 # captial available per stock
-cost_basis = float(trading_client.get_account().cash) / \
-    (TRADING_DAYS * float(len(tickers)))
+if 'paper' in BASE_URL:
+    cost_basis = 100 / float(len(tickers))
+else:
+    cost_basis = float(trading_client.get_account().cash) / \
+        (TRADING_DAYS * float(len(tickers)))
 
 # submit buy order
 for sym in tickers:
