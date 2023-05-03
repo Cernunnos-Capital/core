@@ -13,6 +13,6 @@ trading_client = TradingClient.REST(
     API_KEY, SECRET_KEY, BASE_URL, api_version='v2')
 
 # check market hours
-if not trading_client.get_clock().is_open:
-    print('Market is Closed!')
-    sys.exit()
+# if not trading_client.get_clock().is_open:
+#     print('Market is Closed!')
+#     sys.exit()
