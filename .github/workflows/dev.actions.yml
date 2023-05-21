@@ -49,7 +49,7 @@ jobs:
           URL_TC: ${{ secrets.URL_TC }}
           URL_UT: ${{ secrets.URL_UT }}
         run: |
-          python order.py
+          python accumulate.py
 
       - name: Liquidate
         env:
