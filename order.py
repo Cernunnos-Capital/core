@@ -1,19 +1,22 @@
 """Module submits buy order using Alpaca API"""
 import calendar
-from datetime import date
+import numpy as np
+from datetime import datetime
 from credentials import trading_client, BASE_URL
+from alpaca.trading.requests import MarketOrderRequest
+from alpaca.trading.enums import OrderSide, TimeInForce
 from screen import tickers
 
 # account info
 account = trading_client.get_account()
 
 # pro-rated capital
-today = date.today()
-last_day = f'{today.year}-{today.month}-{calendar.monthrange(today.year, today.month)[1]}'
+today = datetime.now()
+last_day = f"{np.datetime64(today, 'M')}-{calendar.monthrange(today.year, today.month)[1]}"
+today = np.datetime64(today, 'D')
+last_day = np.datetime64(last_day)
 
-TRADING_DAYS = 0
-for i in trading_client.get_calendar(start=today, end=last_day):
-    TRADING_DAYS += 1
+TRADING_DAYS = np.busday_count(today, last_day)
 
 # captial available per stock
 if 'paper' in BASE_URL:
@@ -22,11 +25,18 @@ else:
     cost_basis = float(trading_client.get_account().cash) / \
         (TRADING_DAYS * float(len(tickers)))
 
-# submit buy order
 for sym in tickers:
-    trading_client.submit_order(
+    # preparing orders
+    market_order_data = MarketOrderRequest(
         symbol=sym,
-        side='buy',
-        notional=cost_basis,
+        side=OrderSide.BUY,
+        time_in_force=TimeInForce.DAY,
+        notional=cost_basis
     )
+
+    # submit buy order
+    trading_client.submit_order(
+        order_data=market_order_data
+    )
+
     print('Bought', sym)

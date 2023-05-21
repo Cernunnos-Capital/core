@@ -1,7 +1,7 @@
 """Module fetches stock details from autoviz"""
-import time
 import requests
-import autoviz
+import bs4 as BeautifulSoup
+import itertools
 
 ratios = {'Basic Materials': [5, 22.5],
           'Communication Services': [22.5, 35],
@@ -18,25 +18,21 @@ ratios = {'Basic Materials': [5, 22.5],
 
 
 def fetch_fundamentals(stock):
-    """Returns ticker details"""
-    wait = 0
-    get_fundamentals = True
+    """Returns ticker fundamentals"""
+    BASE_URL = f'https://finviz.com/quote.ashx?t={stock}'
 
-    while get_fundamentals:
-        try:
-            try:
-                data = autoviz.get_stock(stock['Ticker'])
-            except TypeError:
-                data = autoviz.get_stock(stock.symbol)
-            get_fundamentals = False
-        except requests.exceptions.HTTPError:
-            wait += 1
-            time.sleep(wait)
+    r = requests.get(BASE_URL, headers={'User-Agent': 'My User Agent 1.0'})
 
-        if wait > 5:
-            data = None
-            get_fundamentals = False
+    data = {}
+    # check status code
+    if r.status_code == 200:
+        # Parsing the HTML
+        html_parser = BeautifulSoup(r.content, 'html.parser')
+        key = html_parser.findAll('td', class_='snapshot-td2-cp')
+        value = html_parser.findAll('td', class_='snapshot-td2')
 
+        for (d, v) in itertools.zip_longest(key, value):
+            data[d.text] = v.text
     return data
 
 
