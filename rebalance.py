@@ -1,8 +1,8 @@
 """Module rebalances the portfolio by buying underwater equities"""
 import math
-from credentials import trading_client
 from alpaca.trading.requests import MarketOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce
+from credentials import trading_client
 
 for p in trading_client.get_all_positions():
     loss = float(p.unrealized_plpc)
@@ -22,5 +22,5 @@ for p in trading_client.get_all_positions():
         trading_client.submit_order(
             order_data=market_order_data
         )
-        
+
         print('Bought', p.symbol)
