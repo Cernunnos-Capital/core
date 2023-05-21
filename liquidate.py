@@ -4,7 +4,7 @@ from fetch import fetch_fundamentals, str_perc, ratios
 
 # high valuation
 SOLD = False
-for p in trading_client.list_positions():
+for p in trading_client.get_all_positions():
     data = fetch_fundamentals(p)
     if data is None:
         continue
