@@ -1,20 +1,19 @@
 """Module fetches stock details from autoviz"""
 import requests
-import bs4 as BeautifulSoup
+from bs4 import BeautifulSoup
 import itertools
 
-ratios = {'Basic Materials': [5, 22.5],
-          'Communication Services': [22.5, 35],
-          'Consumer Cyclical': [22.5, 35],
-          'Consumer Defensive': [22.5, 35],
-          'Energy': [7, 8.5],
-          'Healthcare': [25, 30],
-          'Industrials': [20, 30],
-          'Real Estate': [25, 35],
-          'Technology': [30, 40],
-          'Utilities': [5, 15],
-          'Financial': [15, 10]
-          }
+def str_perc(metric):
+    """Convert data to operatable ratios"""
+    metric = str(metric)
+
+    if metric != '-':
+        metric = metric.replace('%', '')
+        metric = float(metric)
+    else:
+        metric = 0.0
+
+    return metric
 
 
 def fetch_fundamentals(stock):
@@ -34,16 +33,3 @@ def fetch_fundamentals(stock):
         for (d, v) in itertools.zip_longest(key, value):
             data[d.text] = v.text
     return data
-
-
-def str_perc(metric):
-    """Convert data to operatable ratios"""
-    metric = str(metric)
-
-    if metric != '-':
-        metric = metric.replace('%', '')
-        metric = float(metric)
-    else:
-        metric = 0.0
-
-    return metric
