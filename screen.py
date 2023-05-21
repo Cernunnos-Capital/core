@@ -1,18 +1,18 @@
 """Module screens stocks from Finviz"""
-import requests
 import os
-from credentials import trading_client
-from bs4 import BeautifulSoup
 import random
+import requests
+from bs4 import BeautifulSoup
+from credentials import trading_client
 
 
-SECTORS = [os.environ['URL_BM'], os.environ['URL_CS'], os.environ['URL_CC'], os.environ['URL_CD'], os.environ['URL_EN'],
-           os.environ['URL_FN'], os.environ['URL_HL'], os.environ['URL_IN'], os.environ['URL_RE'], os.environ['URL_TC'],
-           os.environ['URL_UT']]
+SECTORS = [os.environ['URL_BM'], os.environ['URL_CS'], os.environ['URL_CC'], os.environ['URL_CD'],
+           os.environ['URL_EN'], os.environ['URL_FN'], os.environ['URL_HL'], os.environ['URL_IN'],
+           os.environ['URL_RE'], os.environ['URL_TC'], os.environ['URL_UT']]
 
 tickers = []
 for sec in SECTORS:
-    r = requests.get(sec, headers={'User-Agent': 'My User Agent 1.0'})
+    r = requests.get(sec, headers={'User-Agent': 'My User Agent 1.0'}, timeout=10)
 
     # check status code
     if r.status_code == 200:
@@ -30,7 +30,7 @@ for sec in SECTORS:
 
 # buy existing underwater positions
 if len(tickers) == 0:
-    for p in trading_client.list_positions():
+    for p in trading_client.get_all_positions():
         loss = float(p.unrealized_plpc)
 
         if 0 > loss > -0.75:
