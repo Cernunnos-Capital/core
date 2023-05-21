@@ -1,14 +1,15 @@
 """Module submits sell order using Alpaca API"""
 from credentials import trading_client
-from fetch import fetch_fundamentals, str_perc, ratios
+from fetch import fetch_fundamentals, str_perc
 
 # high valuation
 SOLD = False
 for p in trading_client.get_all_positions():
-    data = fetch_fundamentals(p)
+    data = fetch_fundamentals(p.symbol)
     if data is None:
         continue
 
+    PE_RATIO = str_perc(data['P/E'])
     FWD_PE_RATIO = str_perc(data['Forward P/E'])
     PEG_RATIO = str_perc(data['PEG'])
     PS_RATIO = str_perc(data['P/S'])
@@ -28,8 +29,7 @@ for p in trading_client.get_all_positions():
     if INSIDER_TRANS < -20:
         STRIKE += 1
 
-    if (FWD_PE_RATIO > ratios[data['Sector']][0]) and (STRIKE > 1) \
-            and (RSI > 60) and (CURRENT_PRICE > TARGET_PRICE):
+    if (FWD_PE_RATIO > PE_RATIO) and (STRIKE > 1) and (RSI > 60) and (CURRENT_PRICE > TARGET_PRICE):
         SOLD = True
         QTY = float(trading_client.get_position(p.symbol).qty)
         TRAILING_SELL_QTY = int(QTY)
