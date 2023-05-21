@@ -1,6 +1,7 @@
 """Module submits sell order using Alpaca API"""
 from credentials import trading_client
 from fetch import fetch_fundamentals, str_perc
+from orders import trailing_sell, sell
 
 # high valuation
 SOLD = False
@@ -31,28 +32,16 @@ for p in trading_client.get_all_positions():
 
     if (FWD_PE_RATIO > PE_RATIO) and (STRIKE > 1) and (RSI > 60) and (CURRENT_PRICE > TARGET_PRICE):
         SOLD = True
-        QTY = float(trading_client.get_position(p.symbol).qty)
+        QTY = float(p.qty)
         TRAILING_SELL_QTY = int(QTY)
 
         try:
             if TRAILING_SELL_QTY > 0:
-                trading_client.submit_order(
-                    side='sell',
-                    symbol=p.symbol,
-                    type='trailing_stop',
-                    trail_percent='5',
-                    time_in_force='gtc',
-                    qty=TRAILING_SELL_QTY,
-                )
+                trailing_sell(p.symbol, TRAILING_SELL_QTY)
 
             LIQUIDATION_SELL_QTY = QTY - TRAILING_SELL_QTY
 
-            trading_client.submit_order(
-                side='sell',
-                symbol=p.symbol,
-                qty=LIQUIDATION_SELL_QTY,
-            )
-
+            sell(p.symbol, LIQUIDATION_SELL_QTY)
             print('Sold', p.symbol)
         except:  # pylint: disable=bare-except
             print(p.symbol, ': Sell order already placed!')
