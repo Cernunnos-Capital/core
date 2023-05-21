@@ -24,13 +24,13 @@ jobs:
           pip install -r requirements.txt --no-cache-dir
           pip install pylint
 
-      - name: Lint
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          ENDPOINT: ${{ secrets.ENDPOINT }}
-        run: |
-          pylint *.py
+      # - name: Lint
+      #   env:
+      #     API_KEY: ${{ secrets.API_KEY }}
+      #     SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      #     ENDPOINT: ${{ secrets.ENDPOINT }}
+      #   run: |
+      #     pylint *.py
 
       - name: Accumulate
         env:

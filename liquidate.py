@@ -10,7 +10,7 @@ for p in trading_client.get_all_positions():
     if data is None:
         continue
 
-    # PE_RATIO = str_perc(data['P/E'])
+    PE_RATIO = str_perc(data['P/E'])
     FWD_PE_RATIO = str_perc(data['Forward P/E'])
     PEG_RATIO = str_perc(data['PEG'])
     PS_RATIO = str_perc(data['P/S'])
@@ -19,6 +19,7 @@ for p in trading_client.get_all_positions():
     TARGET_PRICE = str_perc(data['Target Price'])
     CURRENT_PRICE = str_perc(data['Price'])
     RSI = str_perc(data['RSI (14)'])
+    print(PE_RATIO, FWD_PE_RATIO, PEG_RATIO, PS_RATIO, INSIDER_TRANS, TARGET_PRICE, CURRENT_PRICE, RSI)
 
     STRIKE = 0
     if PEG_RATIO > 2:
