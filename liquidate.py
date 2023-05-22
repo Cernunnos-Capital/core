@@ -5,12 +5,18 @@ from orders import trailing_sell, sell
 
 # high valuation
 SOLD = False
+KEEP_FETCHING = True
 for p in trading_client.get_all_positions():
-    data = fetch_fundamentals(p.symbol)
-    if data is None:
-        continue
+    while KEEP_FETCHING:
+        try:
+            data = fetch_fundamentals(p.symbol)
+            if data is None:
+                continue
+            PE_RATIO = str_perc(data['P/E'])
+        except KeyError:
+            print(p.symbol, ': could not fetch')
+        KEEP_FETCHING = False
 
-    # PE_RATIO = str_perc(data['P/E'])
     FWD_PE_RATIO = str_perc(data['Forward P/E'])
     PEG_RATIO = str_perc(data['PEG'])
     PS_RATIO = str_perc(data['P/S'])
