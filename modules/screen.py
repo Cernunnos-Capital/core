@@ -1,9 +1,8 @@
 """Module screens stocks from Finviz"""
 import os
 import random
-import requests
-from bs4 import BeautifulSoup
 from credentials import trading_client
+from fetch import fetch_scrapper
 
 
 SECTORS = [os.environ['URL_BM'], os.environ['URL_CS'], os.environ['URL_CC'], os.environ['URL_CD'],
@@ -12,21 +11,15 @@ SECTORS = [os.environ['URL_BM'], os.environ['URL_CS'], os.environ['URL_CC'], os.
 
 tickers = []
 for sec in SECTORS:
-    r = requests.get(sec, headers={'User-Agent': 'My User Agent 1.0'}, timeout=10)
+    links = fetch_scrapper(sec).findAll('a', class_='screener-link-primary')
 
-    # check status code
-    if r.status_code == 200:
-        # Parsing the HTML
-        html_parser = BeautifulSoup(r.content, 'html.parser')
-        links = html_parser.findAll('a', class_='screener-link-primary')
-
-        for a in links:
-            stock_attr = trading_client.get_asset(a.text)
-            if (stock_attr.tradable is True) and (stock_attr.fractionable is True):
-                print(stock_attr.name)
-                tickers.append(a.text)
-            else:
-                print(a.text, 'not fractionable/tradable')
+    for a in links:
+        stock_attr = trading_client.get_asset(a.text)
+        if (stock_attr.tradable is True) and (stock_attr.fractionable is True):
+            print(stock_attr.name)
+            tickers.append(a.text)
+        else:
+            print(f'<---------- {a.text} not fractionable/tradable ---------->')
 
 # buy existing underwater positions
 if len(tickers) == 0:

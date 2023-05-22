@@ -15,22 +15,28 @@ def str_perc(metric):
 
     return metric
 
-
-def fetch_fundamentals(stock):
-    """Returns ticker fundamentals"""
-    endpoint = f'https://finviz.com/quote.ashx?t={stock}'
-
+def fetch_scrapper(endpoint):
+    """Scrapes finviz"""
     endpoint_request = requests.get(endpoint, headers={'User-Agent': 'My User Agent 1.0'},
                                     timeout=10)
 
-    data = {}
     # check status code
     if endpoint_request.status_code == 200:
         # Parsing the HTML
         html_parser = BeautifulSoup(endpoint_request.content, 'html.parser')
-        names = html_parser.findAll('td', class_='snapshot-td2-cp')
-        values = html_parser.findAll('td', class_='snapshot-td2')
+        return html_parser
 
-        for (name, value) in itertools.zip_longest(names, values):
-            data[name.text] = value.text
+    return None
+
+
+def fetch_fundamentals(stock):
+    """Returns ticker fundamentals"""
+    raw_data = fetch_scrapper(f'https://finviz.com/quote.ashx?t={stock}')
+
+    names = raw_data.findAll('td', class_='snapshot-td2-cp')
+    values = raw_data.findAll('td', class_='snapshot-td2')
+
+    data = {}
+    for (name, value) in itertools.zip_longest(names, values):
+        data[name.text] = value.text
     return data

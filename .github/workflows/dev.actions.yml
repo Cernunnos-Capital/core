@@ -29,8 +29,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
-        run: |
-          pylint *.py
+        run: pylint modules
 
       - name: Accumulate
         env:
