@@ -18,7 +18,7 @@ jobs:
       - name: Install python packages
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements.txt --no-cache-dir
 
       - name: Accumulate
         env:
@@ -36,16 +36,14 @@ jobs:
           URL_RE: ${{ secrets.URL_RE }}
           URL_TC: ${{ secrets.URL_TC }}
           URL_UT: ${{ secrets.URL_UT }}
-        run: |
-          python accumulate.py
+        run: python modules/accumulate.py
 
       - name: Liquidate
         env:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
-        run: |
-          python liquidate.py
+        run: python modules/liquidate.py
 
   prd:
     needs: stg
@@ -63,7 +61,7 @@ jobs:
       - name: Install python packages
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements.txt --no-cache-dir
 
       - name: Accumulate
         env:
@@ -81,13 +79,11 @@ jobs:
           URL_RE: ${{ secrets.URL_RE }}
           URL_TC: ${{ secrets.URL_TC }}
           URL_UT: ${{ secrets.URL_UT }}
-        run: |
-          python accumulate.py
+        run: python modules/accumulate.py
 
       - name: Liquidate
         env:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
-        run: |
-          python liquidate.py
+        run: python modules/liquidate.py
