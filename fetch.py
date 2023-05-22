@@ -1,44 +1,7 @@
-"""Module fetches stock details from autoviz"""
-import time
+"""Module fetches stock details"""
+import itertools
 import requests
-import autoviz
-
-ratios = {'Basic Materials': [5, 22.5],
-          'Communication Services': [22.5, 35],
-          'Consumer Cyclical': [22.5, 35],
-          'Consumer Defensive': [22.5, 35],
-          'Energy': [7, 8.5],
-          'Healthcare': [25, 30],
-          'Industrials': [20, 30],
-          'Real Estate': [25, 35],
-          'Technology': [30, 40],
-          'Utilities': [5, 15],
-          'Financial': [15, 10]
-          }
-
-
-def fetch_fundamentals(stock):
-    """Returns ticker details"""
-    wait = 0
-    get_fundamentals = True
-
-    while get_fundamentals:
-        try:
-            try:
-                data = autoviz.get_stock(stock['Ticker'])
-            except TypeError:
-                data = autoviz.get_stock(stock.symbol)
-            get_fundamentals = False
-        except requests.exceptions.HTTPError:
-            wait += 1
-            time.sleep(wait)
-
-        if wait > 5:
-            data = None
-            get_fundamentals = False
-
-    return data
-
+from bs4 import BeautifulSoup
 
 def str_perc(metric):
     """Convert data to operatable ratios"""
@@ -51,3 +14,23 @@ def str_perc(metric):
         metric = 0.0
 
     return metric
+
+
+def fetch_fundamentals(stock):
+    """Returns ticker fundamentals"""
+    endpoint = f'https://finviz.com/quote.ashx?t={stock}'
+
+    endpoint_request = requests.get(endpoint, headers={'User-Agent': 'My User Agent 1.0'},
+                                    timeout=10)
+
+    data = {}
+    # check status code
+    if endpoint_request.status_code == 200:
+        # Parsing the HTML
+        html_parser = BeautifulSoup(endpoint_request.content, 'html.parser')
+        names = html_parser.findAll('td', class_='snapshot-td2-cp')
+        values = html_parser.findAll('td', class_='snapshot-td2')
+
+        for (name, value) in itertools.zip_longest(names, values):
+            data[name.text] = value.text
+    return data

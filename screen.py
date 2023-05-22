@@ -1,58 +1,36 @@
 """Module screens stocks from Finviz"""
 import os
 import random
-from autoviz.screener import Screener
-from fetch import fetch_fundamentals, ratios, str_perc
+import requests
+from bs4 import BeautifulSoup
 from credentials import trading_client
 
-# screening attributes
-STOCK_SCREENER = os.environ['URL'].split(',')
 
-# error handling for no result
-try:
-    stock_list = Screener(filters=STOCK_SCREENER)
-except Exception as e:  # pylint: disable=broad-exception-caught
-    print(e)
-
-
-def trim(data, p_e, p_fcf):
-    """Trim data as per the sector"""
-    industry_pe = ratios[data['Sector']][0]
-    industry_pfcf = ratios[data['Sector']][1]
-
-    if p_e > industry_pe or p_fcf > industry_pfcf:
-        return
-
-    print(data['Company'])
-    tickers.append(data['Ticker'])
-
+SECTORS = [os.environ['URL_BM'], os.environ['URL_CS'], os.environ['URL_CC'], os.environ['URL_CD'],
+           os.environ['URL_EN'], os.environ['URL_FN'], os.environ['URL_HL'], os.environ['URL_IN'],
+           os.environ['URL_RE'], os.environ['URL_TC'], os.environ['URL_UT']]
 
 tickers = []
-for stock in stock_list:
-    try:
-        if trading_client.get_asset(stock['Ticker']).fractionable is True:
-            stock_detail = fetch_fundamentals(stock)
+for sec in SECTORS:
+    r = requests.get(sec, headers={'User-Agent': 'My User Agent 1.0'}, timeout=10)
 
-            insider_trans = str_perc(stock_detail['Insider Trans'])
-            price_to_earn_gwth = str_perc(stock_detail['PEG'])
+    # check status code
+    if r.status_code == 200:
+        # Parsing the HTML
+        html_parser = BeautifulSoup(r.content, 'html.parser')
+        links = html_parser.findAll('a', class_='screener-link-primary')
 
-            if price_to_earn_gwth > 2 or insider_trans < -20:
-                continue
-
-            return_on_equity = str_perc(stock_detail['ROE'])
-            if stock_detail['Industry'] == 'Banks - Regional' and return_on_equity < 20:
-                continue
-
-            price_to_earnings = str_perc(stock_detail['P/E'])
-            price_to_fcf = str_perc(stock_detail['P/FCF'])
-            trim(stock, price_to_earnings, price_to_fcf)
-    except:  # pylint: disable=bare-except
-        print(stock['Ticker'], 'not found')
-
+        for a in links:
+            stock_attr = trading_client.get_asset(a.text)
+            if (stock_attr.tradable is True) and (stock_attr.fractionable is True):
+                print(stock_attr.name)
+                tickers.append(a.text)
+            else:
+                print(a.text, 'not fractionable/tradable')
 
 # buy existing underwater positions
 if len(tickers) == 0:
-    for p in trading_client.list_positions():
+    for p in trading_client.get_all_positions():
         loss = float(p.unrealized_plpc)
 
         if 0 > loss > -0.75:

@@ -1,7 +1,7 @@
 """Module connects Alpaca API"""
 import os
 import sys
-import alpaca_trade_api as TradingClient
+from alpaca.trading.client import TradingClient
 
 # credentials
 BASE_URL = os.environ['ENDPOINT']
@@ -9,8 +9,10 @@ API_KEY = os.environ['API_KEY']
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # alpaca API
-trading_client = TradingClient.REST(
-    API_KEY, SECRET_KEY, BASE_URL, api_version='v2')
+if 'paper' in BASE_URL:
+    trading_client = TradingClient(API_KEY, SECRET_KEY, paper=True)
+else:
+    trading_client = TradingClient(API_KEY, SECRET_KEY, paper=False)
 
 # check market hours
 if not trading_client.get_clock().is_open:
