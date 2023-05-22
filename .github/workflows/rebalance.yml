@@ -26,8 +26,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
           URL: ${{ secrets.URL }}
-        run: |
-          python rebalance.py
+        run: python modules/rebalance.py
 
   prd:
     needs: stg
@@ -53,5 +52,4 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
           URL: ${{ secrets.URL }}
-        run: |
-          python rebalance.py
+        run: python modules/rebalance.py
