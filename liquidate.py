@@ -10,7 +10,7 @@ for p in trading_client.get_all_positions():
     if data is None:
         continue
 
-    PE_RATIO = str_perc(data['P/E'])
+    # PE_RATIO = str_perc(data['P/E'])
     FWD_PE_RATIO = str_perc(data['Forward P/E'])
     PEG_RATIO = str_perc(data['PEG'])
     PS_RATIO = str_perc(data['P/S'])
