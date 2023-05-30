@@ -1,4 +1,4 @@
-name: Buy Orders
+name: Orders
 
 on:
   schedule:
@@ -40,6 +40,13 @@ jobs:
           URL_UT: ${{ secrets.URL_UT }}
         run: python modules/accumulate.py
 
+      - name: Liquidate
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+        run: python modules/liquidate.py
+
   prd:
     needs: stg
     runs-on: ubuntu-latest
@@ -75,3 +82,10 @@ jobs:
           URL_TC: ${{ secrets.URL_TC }}
           URL_UT: ${{ secrets.URL_UT }}
         run: python modules/accumulate.py
+
+      - name: Liquidate
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+        run: python modules/liquidate.py
