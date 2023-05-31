@@ -15,7 +15,8 @@ last_day = f"{np.datetime64(today, 'M')}-{calendar.monthrange(today.year, today.
 today = np.datetime64(today, 'D')
 last_day = np.datetime64(last_day)
 
-TRADING_DAYS = np.busday_count(today, last_day)
+# inclusive
+TRADING_DAYS = 1 + np.busday_count(today, last_day)
 
 # captial available per stock
 if 'paper' in BASE_URL:
