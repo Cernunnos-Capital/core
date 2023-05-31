@@ -21,8 +21,7 @@ TRADING_DAYS = np.busday_count(today, last_day)
 if 'paper' in BASE_URL:
     cost_basis = 100 / float(len(tickers))
 else:
-    cost_basis = float(trading_client.get_account().cash) / \
-        (TRADING_DAYS * float(len(tickers)))
+    cost_basis = float(account.cash) / (TRADING_DAYS * float(len(tickers)))
 
 for sym in tickers:
     buy(sym, cost_basis)
