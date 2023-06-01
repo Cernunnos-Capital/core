@@ -15,14 +15,14 @@ last_day = f"{np.datetime64(today, 'M')}-{calendar.monthrange(today.year, today.
 today = np.datetime64(today, 'D')
 last_day = np.datetime64(last_day)
 
-TRADING_DAYS = np.busday_count(today, last_day)
+# inclusive
+TRADING_DAYS = 1 + np.busday_count(today, last_day)
 
 # captial available per stock
 if 'paper' in BASE_URL:
     cost_basis = 100 / float(len(tickers))
 else:
-    cost_basis = float(trading_client.get_account().cash) / \
-        (TRADING_DAYS * float(len(tickers)))
+    cost_basis = float(account.cash) / (TRADING_DAYS * float(len(tickers)))
 
 for sym in tickers:
     buy(sym, cost_basis)
