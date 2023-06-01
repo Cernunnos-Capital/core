@@ -11,7 +11,7 @@ for p in trading_client.get_all_positions():
         data = fetch_fundamentals(p.symbol)
         print(f'{p.symbol} fetched')
     except AttributeError:
-        print(f'<------------- {p.symbol} ------------->')
+        print(f'<------------- {p.symbol} not fetched ------------->')
         continue
 
     PE_RATIO = str_perc(data['P/E'])
