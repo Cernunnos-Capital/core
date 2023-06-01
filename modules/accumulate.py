@@ -1,8 +1,8 @@
 """Module allocates pro-rated capital"""
 import calendar
 from datetime import datetime
-import numpy as np
 import sys
+import numpy as np
 from credentials import trading_client, BASE_URL
 from screen import tickers
 from orders import buy
