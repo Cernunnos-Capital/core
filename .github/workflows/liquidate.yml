@@ -1,0 +1,55 @@
+name: Liquidation
+
+on:
+  schedule:
+    - cron: "00 17 * * 5" # F 10:30AM PDT
+
+jobs:
+  stg:
+    runs-on: ubuntu-latest
+    environment: Staging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4.3.0
+        with:
+          python-version: "3.10"
+
+      - name: Install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --no-cache-dir
+
+      - name: Liquidate
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+        run: python modules/liquidate.py
+
+  prd:
+    needs: stg
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4.3.0
+        with:
+          python-version: "3.10"
+
+      - name: Install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --no-cache-dir
+
+      - name: Liquidate
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ENDPOINT: ${{ secrets.ENDPOINT }}
+        run: python modules/liquidate.py
