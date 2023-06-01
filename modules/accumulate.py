@@ -26,7 +26,7 @@ else:
     cost_basis = float(account.cash) / (TRADING_DAYS * float(len(tickers)))
 
 if cost_basis < 10.0:
-    print('Market is Closed!')
+    print('Insufficient funds.')
     sys.exit()
 
 for sym in tickers:
