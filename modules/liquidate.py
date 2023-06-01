@@ -9,8 +9,9 @@ KEEP_FETCHING = True
 for p in trading_client.get_all_positions():
     try:
         data = fetch_fundamentals(p.symbol)
+        print(f'{p.symbol} fetched')
     except AttributeError:
-        print(f'{p.symbol} could not be fetched')
+        print(f'<------------- {p.symbol} ------------->')
         continue
 
     PE_RATIO = str_perc(data['P/E'])
