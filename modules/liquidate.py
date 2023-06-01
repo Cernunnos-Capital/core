@@ -7,7 +7,12 @@ from orders import trailing_sell, sell
 SOLD = False
 KEEP_FETCHING = True
 for p in trading_client.get_all_positions():
-    data = fetch_fundamentals(p.symbol)
+    try:
+        data = fetch_fundamentals(p.symbol)
+        print(f'{p.symbol} fetched')
+    except AttributeError:
+        print(f'<------------- {p.symbol} not fetched ------------->')
+        continue
 
     PE_RATIO = str_perc(data['P/E'])
     FWD_PE_RATIO = str_perc(data['Forward P/E'])
