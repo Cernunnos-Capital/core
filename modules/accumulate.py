@@ -1,6 +1,7 @@
 """Module allocates pro-rated capital"""
 import calendar
 from datetime import datetime
+import sys
 import numpy as np
 from credentials import trading_client, BASE_URL
 from screen import tickers
@@ -23,6 +24,10 @@ if 'paper' in BASE_URL:
     cost_basis = 100 / float(len(tickers))
 else:
     cost_basis = float(account.cash) / (TRADING_DAYS * float(len(tickers)))
+
+if cost_basis < 10.0:
+    print('Insufficient funds.')
+    sys.exit()
 
 for sym in tickers:
     buy(sym, cost_basis)
