@@ -7,8 +7,8 @@ from credentials import trading_client, BASE_URL
 from screen import tickers
 from orders import buy
 
-# account info
-account = trading_client.get_account()
+# account info - cash in hand
+cash_in_account = float(trading_client.get_account().cash)
 
 # trading days within a month
 today = datetime.now()
@@ -23,9 +23,9 @@ TRADING_DAYS = 1 + np.busday_count(today, last_day)
 if 'paper' in BASE_URL:
     cost_basis = 100 / float(len(tickers))
 else:
-    cost_basis = float(account.cash) / (TRADING_DAYS * float(len(tickers)))
+    cost_basis = cash_in_account / (TRADING_DAYS * float(len(tickers)))
 
-if cost_basis < 10.0:
+if cash_in_account < 10.0:
     print('Insufficient funds.')
     sys.exit()
 
