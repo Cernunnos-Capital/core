@@ -1,5 +1,6 @@
 """Module fetches stock details"""
 import itertools
+import time
 import requests
 from bs4 import BeautifulSoup
 
@@ -33,7 +34,18 @@ def fetch_scrapper(endpoint):
 
 def fetch_fundamentals(stock):
     """Returns ticker fundamentals"""
-    raw_data = fetch_scrapper(f'https://finviz.com/quote.ashx?t={stock}')
+    trial = 1
+    while trial < 4:
+        try:
+            raw_data = fetch_scrapper(
+                f'https://finviz.com/quote.ashx?t={stock}')
+            print(f'{stock} fetched')
+            break
+        except AttributeError:
+            print(f'<------------- {stock} not fetched ------------->')
+            time.sleep(trial)
+
+        trial += 1
 
     names = raw_data.findAll('td', class_='snapshot-td2-cp')
     values = raw_data.findAll('td', class_='snapshot-td2')
