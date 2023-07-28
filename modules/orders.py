@@ -3,11 +3,13 @@ from alpaca.trading.requests import MarketOrderRequest, TrailingStopOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce
 from credentials import trading_client
 
+
 def final(order_data):
     """Submits order using prepared data"""
     trading_client.submit_order(
         order_data=order_data
     )
+
 
 def buy(sym, cost_basis):
     """Preparing market buy orders"""
@@ -21,6 +23,7 @@ def buy(sym, cost_basis):
     final(market_buy_order_data)
     print('Bought', sym)
 
+
 def trailing_sell(sym, quantity):
     """Preparing trailing sell orders"""
     trailing_stop_order_data = TrailingStopOrderRequest(
@@ -32,6 +35,7 @@ def trailing_sell(sym, quantity):
     )
 
     final(trailing_stop_order_data)
+
 
 def sell(sym, quantity):
     """Preparing market sell orders"""

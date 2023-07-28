@@ -3,6 +3,7 @@ import itertools
 import requests
 from bs4 import BeautifulSoup
 
+
 def str_perc(metric):
     """Convert data to operatable ratios"""
     metric = str(metric)
@@ -14,6 +15,7 @@ def str_perc(metric):
         metric = 0.0
 
     return metric
+
 
 def fetch_scrapper(endpoint):
     """Scrapes finviz"""

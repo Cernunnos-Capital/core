@@ -19,7 +19,8 @@ for sec in SECTORS:
             print(stock_attr.name)
             tickers.append(a.text)
         else:
-            print(f'<---------- {a.text} not fractionable/tradable ---------->')
+            print(
+                f'<---------- {a.text} not fractionable/tradable ---------->')
 
 # buy existing underwater positions
 if len(tickers) == 0:
