@@ -30,4 +30,7 @@ if cash_in_account < 10.0:
     sys.exit()
 
 for sym in tickers:
-    buy(sym, cost_basis)
+    try:
+        buy(sym, cost_basis)
+    except:  # pylint: disable=bare-except
+        pass
