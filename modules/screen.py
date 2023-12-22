@@ -22,7 +22,7 @@ for sec in SECTORS:
             else:
                 print(
                     f'<---------- {a.text} not fractionable/tradable ---------->')
-        except:
+        except:  # pylint: disable=bare-except
             pass
 
 # buy existing underwater positions
