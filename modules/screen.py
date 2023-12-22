@@ -11,16 +11,19 @@ SECTORS = [os.environ['URL_BM'], os.environ['URL_CS'], os.environ['URL_CC'], os.
 
 tickers = []
 for sec in SECTORS:
-    links = fetch_scrapper(sec).findAll('a', class_='screener-link-primary')
+    links = fetch_scrapper(sec).findAll('a', class_='tab-link')
 
     for a in links:
-        stock_attr = trading_client.get_asset(a.text)
-        if (stock_attr.tradable is True) and (stock_attr.fractionable is True):
-            print(stock_attr.name)
-            tickers.append(a.text)
-        else:
-            print(
-                f'<---------- {a.text} not fractionable/tradable ---------->')
+        try:
+            stock_attr = trading_client.get_asset(a.text)
+            if (stock_attr.tradable is True) and (stock_attr.fractionable is True):
+                print(stock_attr.name)
+                tickers.append(a.text)
+            else:
+                print(
+                    f'<---------- {a.text} not fractionable/tradable ---------->')
+        except:  # pylint: disable=bare-except
+            pass
 
 # buy existing underwater positions
 if len(tickers) == 0:

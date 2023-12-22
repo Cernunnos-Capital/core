@@ -6,7 +6,10 @@ from orders import trailing_sell, sell
 # high valuation
 SOLD = False
 for p in trading_client.get_all_positions():
-    data = fetch_fundamentals(p.symbol)
+    try:
+        data = fetch_fundamentals(p.symbol)
+    except:  # pylint: disable=bare-except
+        continue
 
     PE_RATIO = str_perc(data['P/E'])
     FWD_PE_RATIO = str_perc(data['Forward P/E'])
