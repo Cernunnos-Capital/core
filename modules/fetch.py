@@ -47,7 +47,7 @@ def fetch_fundamentals(stock):
 
         trial += 1
 
-    names = raw_data.findAll('td', class_='snapshot-td2-cp')
+    names = raw_data.findAll('td', class_='snapshot-td2 cursor-pointer')
     values = raw_data.findAll('td', class_='snapshot-td2')
 
     data = {}
