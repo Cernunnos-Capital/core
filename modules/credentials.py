@@ -1,6 +1,6 @@
 """Module connects Alpaca API"""
 import os
-import sys
+# import sys
 from alpaca.trading.client import TradingClient
 
 # credentials
