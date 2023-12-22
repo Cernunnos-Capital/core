@@ -11,7 +11,7 @@ SECTORS = [os.environ['URL_BM'], os.environ['URL_CS'], os.environ['URL_CC'], os.
 
 tickers = []
 for sec in SECTORS:
-    links = fetch_scrapper(sec).findAll('a', class_='screener-link-primary')
+    links = fetch_scrapper(sec).findAll('a', class_='tab-link')
 
     for a in links:
         stock_attr = trading_client.get_asset(a.text)
