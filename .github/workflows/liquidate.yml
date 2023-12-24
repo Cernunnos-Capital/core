@@ -1,6 +1,8 @@
-name: Trigger order
+name: Liquidation
 
-on: [workflow_dispatch]
+on:
+  schedule:
+    - cron: "00 17 * * 5" # F 10:30AM PDT
 
 jobs:
   stg:
@@ -20,23 +22,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt --no-cache-dir
 
-      - name: Accumulate
+      - name: Liquidate
         env:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
-          URL_BM: ${{ secrets.URL_BM }}
-          URL_CS: ${{ secrets.URL_CS }}
-          URL_CC: ${{ secrets.URL_CC }}
-          URL_CD: ${{ secrets.URL_CD }}
-          URL_EN: ${{ secrets.URL_EN }}
-          URL_FN: ${{ secrets.URL_FN }}
-          URL_HL: ${{ secrets.URL_HL }}
-          URL_IN: ${{ secrets.URL_IN }}
-          URL_RE: ${{ secrets.URL_RE }}
-          URL_TC: ${{ secrets.URL_TC }}
-          URL_UT: ${{ secrets.URL_UT }}
-        run: python modules/accumulate.py
+        run: python modules/liquidate.py
 
   prd:
     needs: stg
@@ -56,20 +47,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt --no-cache-dir
 
-      - name: Accumulate
+      - name: Liquidate
         env:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
-          URL_BM: ${{ secrets.URL_BM }}
-          URL_CS: ${{ secrets.URL_CS }}
-          URL_CC: ${{ secrets.URL_CC }}
-          URL_CD: ${{ secrets.URL_CD }}
-          URL_EN: ${{ secrets.URL_EN }}
-          URL_FN: ${{ secrets.URL_FN }}
-          URL_HL: ${{ secrets.URL_HL }}
-          URL_IN: ${{ secrets.URL_IN }}
-          URL_RE: ${{ secrets.URL_RE }}
-          URL_TC: ${{ secrets.URL_TC }}
-          URL_UT: ${{ secrets.URL_UT }}
-        run: python modules/accumulate.py
+        run: python modules/liquidate.py

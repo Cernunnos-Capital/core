@@ -5,7 +5,6 @@ from orders import trailing_sell, sell
 
 # high valuation
 SOLD = False
-KEEP_FETCHING = True
 for p in trading_client.get_all_positions():
     data = fetch_fundamentals(p.symbol)
 
