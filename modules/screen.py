@@ -11,6 +11,7 @@ SECTORS = [os.environ['URL_BM'], os.environ['URL_CS'], os.environ['URL_CC'], os.
 
 tickers = []
 for sec in SECTORS:
+    print(sec)
     links = fetch_scrapper(sec).findAll('a', class_='tab-link')
 
     for a in links:
