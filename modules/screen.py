@@ -33,6 +33,6 @@ if len(tickers) == 0:
         if 0 > loss > -0.75:
             tickers.append(p.symbol)
 
-# restrict to 10 stocks
-if len(tickers) > 10:
-    tickers = random.sample(tickers, k=10)
+# restrict to 8 stocks
+if len(tickers) > 8:
+    tickers = random.sample(tickers, k=8)
