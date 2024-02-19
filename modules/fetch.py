@@ -35,7 +35,7 @@ def fetch_fundamentals(stock):
     """Returns ticker fundamentals"""
     raw_data = fetch_scrapper(
         f'https://finviz.com/quote.ashx?t={stock}')
-    print(f'{stock} fetched')
+    print(f'{stock}', end='')
 
     names = raw_data.findAll('td', class_='snapshot-td2 cursor-pointer w-[7%]')
     values = raw_data.findAll('td', class_='snapshot-td2 w-[8%]')
