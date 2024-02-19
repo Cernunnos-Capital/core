@@ -1,6 +1,5 @@
 """Module fetches stock details"""
 import itertools
-import time
 import requests
 from bs4 import BeautifulSoup
 
@@ -34,21 +33,12 @@ def fetch_scrapper(endpoint):
 
 def fetch_fundamentals(stock):
     """Returns ticker fundamentals"""
-    trial = 1
-    while trial < 4:
-        try:
-            raw_data = fetch_scrapper(
-                f'https://finviz.com/quote.ashx?t={stock}')
-            print(f'{stock} fetched')
-            break
-        except AttributeError:
-            print(f'<------------- {stock} not fetched ------------->')
-            time.sleep(trial)
+    raw_data = fetch_scrapper(
+        f'https://finviz.com/quote.ashx?t={stock}')
+    print(f'{stock}', end='')
 
-        trial += 1
-
-    names = raw_data.findAll('td', class_='snapshot-td2 cursor-pointer')
-    values = raw_data.findAll('td', class_='snapshot-td2')
+    names = raw_data.findAll('td', class_='snapshot-td2 cursor-pointer w-[7%]')
+    values = raw_data.findAll('td', class_='snapshot-td2 w-[8%]')
 
     data = {}
     for (name, value) in itertools.zip_longest(names, values):
