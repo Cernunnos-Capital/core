@@ -14,7 +14,7 @@ if 'paper' in BASE_URL:
 else:
     trading_client = TradingClient(API_KEY, SECRET_KEY, paper=False)
 
-# check market hours
-if not trading_client.get_clock().is_open:
-    print('Market is Closed!')
-    sys.exit()
+    # check market hours
+    if not trading_client.get_clock().is_open:
+        print('Market is Closed!')
+        sys.exit()
