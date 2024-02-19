@@ -1,7 +1,5 @@
 """Module fetches stock details"""
-import sys
 import itertools
-import time
 import requests
 from bs4 import BeautifulSoup
 
