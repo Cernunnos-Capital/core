@@ -24,7 +24,8 @@ if 'paper' in BASE_URL:
     cost_basis = 100 / float(len(tickers))
 else:
     cost_basis = cash_in_account / (TRADING_DAYS * float(len(tickers)))
-    cost_basis = round(cost_basis, 2)
+
+cost_basis = round(cost_basis, 2)
 
 if cash_in_account < 10.0:
     print('Insufficient funds.')
