@@ -42,7 +42,8 @@ def sell(sym, quantity):
     market_sell_order_data = MarketOrderRequest(
         symbol=sym,
         side=OrderSide.SELL,
-        qty=quantity
+        qty=quantity,
+        time_in_force=TimeInForce.DAY
     )
 
     final(market_sell_order_data)
