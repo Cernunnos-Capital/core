@@ -40,17 +40,15 @@ for p in trading_client.get_all_positions():
         QTY = float(p.qty)
         TRAILING_SELL_QTY = int(QTY)
 
-        try:
-            if TRAILING_SELL_QTY > 0:
-                trailing_sell(p.symbol, TRAILING_SELL_QTY)
+        if TRAILING_SELL_QTY > 0:
+            trailing_sell(p.symbol, TRAILING_SELL_QTY)
+            print(f'Trailing stop-loss set for {TRAILING_SELL_QTY} shares.')
 
-            LIQUIDATION_SELL_QTY = QTY - TRAILING_SELL_QTY
+        LIQUIDATION_SELL_QTY = QTY - TRAILING_SELL_QTY
 
-            sell(p.symbol, LIQUIDATION_SELL_QTY)
-            print('Sold', p.symbol)
-        except:  # pylint: disable=bare-except
-            print(p.symbol, ': Sell order already placed!')
-
+        sell(p.symbol, LIQUIDATION_SELL_QTY)
+        print(f'Sold {LIQUIDATION_SELL_QTY} shares.')
+        print()
 
 if not SOLD:
     print('All positions are healthy!')
