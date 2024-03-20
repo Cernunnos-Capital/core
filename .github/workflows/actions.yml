@@ -2,7 +2,7 @@ name: Buy Orders
 
 on:
   schedule:
-    - cron: "00 16 * * 1-5" # M-F 9:30AM PDT
+    - cron: "00 15 * * 1-5" # M-F 8-8:30 PDT
 
 jobs:
   stg:
