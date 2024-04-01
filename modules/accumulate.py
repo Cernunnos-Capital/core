@@ -28,7 +28,7 @@ else:
 
 cost_basis = round(cost_basis, 2)
 
-if cash_in_account < float(os.environ['MAGIC_NUMBER']):
+if cash_in_account < os.environ['MAGIC_NUMBER']:
     print('Insufficient funds.')
     sys.exit()
 
