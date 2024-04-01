@@ -50,3 +50,6 @@ jobs:
 
       - name: Rebalance
         run: python modules/rebalance.py
+
+      - name: Trim
+        run: python modules/trim.py
