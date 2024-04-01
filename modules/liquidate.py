@@ -31,7 +31,7 @@ for p in trading_client.get_all_positions():
     if INSIDER_TRANS < -20:
         STRIKE += 1
 
-    print(f'({STRIKE}) : ', end='')
+    print(f'{p.symbol}({STRIKE}) : ', end='')
     print(PE_RATIO, FWD_PE_RATIO, PEG_RATIO, PS_RATIO, PB_RATIO,
           INSIDER_TRANS, TARGET_PRICE, CURRENT_PRICE, RSI)
 
