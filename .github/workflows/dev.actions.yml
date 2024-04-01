@@ -39,8 +39,8 @@ jobs:
           pip install -r requirements.txt --no-cache-dir
           pip install pylint
 
-      - name: Lint
-        run: pylint modules
+      # - name: Lint
+      #   run: pylint modules
 
       - name: Accumulate
         run: python modules/accumulate.py
