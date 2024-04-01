@@ -5,7 +5,7 @@ from fetch import fetch_fundamentals, str_perc
 from orders import trailing_sell, sell
 
 # high valuation
-count = 0
+COUNT = 0
 
 for p in trading_client.get_all_positions():
     try:
@@ -17,7 +17,7 @@ for p in trading_client.get_all_positions():
 
     if EPS_GROWTH < os.environ['MAGIC_NUMBER']:
         print(p.symbol)
-        count += 1
+        COUNT += 1
         QTY = float(p.qty)
         TRAILING_SELL_QTY = int(QTY)
         LIQUIDATION_SELL_QTY = QTY - TRAILING_SELL_QTY
@@ -35,4 +35,4 @@ for p in trading_client.get_all_positions():
             print('*********** PENDING SALE ***********')
         print()
 
-print(count)
+print(COUNT)
