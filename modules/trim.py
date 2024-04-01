@@ -15,7 +15,7 @@ for p in trading_client.get_all_positions():
 
     EPS_GROWTH = str_perc(data['EPS next 5Y'])
 
-    if EPS_GROWTH < os.environ['MAGIC_NUMBER']:
+    if EPS_GROWTH < float(os.environ['MAGIC_NUMBER']):
         print(p.symbol)
         COUNT += 1
         QTY = float(p.qty)

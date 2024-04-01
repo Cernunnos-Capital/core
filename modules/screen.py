@@ -34,5 +34,5 @@ if len(tickers) == 0:
             tickers.append(p.symbol)
 
 # restrict stocks
-if len(tickers) > os.environ['MAGIC_NUMBER']:
-    tickers = random.sample(tickers, k=os.environ['MAGIC_NUMBER'])
+if len(tickers) > int(os.environ['MAGIC_NUMBER']):
+    tickers = random.sample(tickers, k=int(os.environ['MAGIC_NUMBER']))
