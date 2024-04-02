@@ -8,9 +8,9 @@ from orders import trailing_sell, sell
 COUNT = 0
 
 for p in trading_client.get_all_positions():
-    try:
-        data = fetch_fundamentals(p.symbol)
-    except:  # pylint: disable=bare-except
+    data = fetch_fundamentals(p.symbol)
+
+    if data is None:
         continue
 
     EPS_GROWTH = str_perc(data['EPS next 5Y'])
