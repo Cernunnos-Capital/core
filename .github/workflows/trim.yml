@@ -27,6 +27,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
+          MAGIC_NUMBER: ${{ secrets.MAGIC_NUMBER }}
         run: python modules/trim.py
 
   prd:
@@ -52,4 +53,5 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ENDPOINT: ${{ secrets.ENDPOINT }}
+          MAGIC_NUMBER: ${{ secrets.MAGIC_NUMBER }}
         run: python modules/trim.py
