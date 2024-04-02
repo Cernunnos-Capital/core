@@ -33,6 +33,6 @@ if len(tickers) == 0:
         if 0 > loss > -0.75:
             tickers.append(p.symbol)
 
-# restrict to 8 stocks
-if len(tickers) > 8:
-    tickers = random.sample(tickers, k=8)
+# restrict stocks
+if len(tickers) > int(os.environ['MAGIC_NUMBER']):
+    tickers = random.sample(tickers, k=int(os.environ['MAGIC_NUMBER']))

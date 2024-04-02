@@ -36,6 +36,7 @@ jobs:
           URL_RE: ${{ secrets.URL_RE }}
           URL_TC: ${{ secrets.URL_TC }}
           URL_UT: ${{ secrets.URL_UT }}
+          MAGIC_NUMBER: ${{ secrets.MAGIC_NUMBER }}
         run: python modules/accumulate.py
 
   prd:
@@ -72,4 +73,5 @@ jobs:
           URL_RE: ${{ secrets.URL_RE }}
           URL_TC: ${{ secrets.URL_TC }}
           URL_UT: ${{ secrets.URL_UT }}
+          MAGIC_NUMBER: ${{ secrets.MAGIC_NUMBER }}
         run: python modules/accumulate.py

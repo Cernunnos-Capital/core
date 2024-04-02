@@ -24,6 +24,7 @@ jobs:
       URL_RE: ${{ secrets.URL_RE }}
       URL_TC: ${{ secrets.URL_TC }}
       URL_UT: ${{ secrets.URL_UT }}
+      MAGIC_NUMBER: ${{ secrets.MAGIC_NUMBER }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.1.1
@@ -50,3 +51,6 @@ jobs:
 
       - name: Rebalance
         run: python modules/rebalance.py
+
+      - name: Trim
+        run: python modules/trim.py

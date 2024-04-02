@@ -1,4 +1,5 @@
 """Module allocates pro-rated capital"""
+import os
 import calendar
 from datetime import datetime
 import sys
@@ -27,7 +28,7 @@ else:
 
 cost_basis = round(cost_basis, 2)
 
-if cash_in_account < 10.0:
+if cash_in_account < float(os.environ['MAGIC_NUMBER']):
     print('Insufficient funds.')
     sys.exit()
 
